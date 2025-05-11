@@ -17,7 +17,7 @@
 <div align="left">
 
 <a href="mailto:pkjhamkt@gmail.com">
-    <img src="https://img.icons8.com/ios-filled/24/000000/email.png" alt="email" />
+    <img src="https://img.shields.io/static/v1?message=Email&logo=gmail&label=&color=EA4335&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="email logo" />
     </a>
   <a href="https://www.linkedin.com/in/prashunkumar/" target="_blank">
     <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="linkedin logo"  />
