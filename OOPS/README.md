@@ -326,40 +326,18 @@ There are 5 types of Inheritance:
 <img src="https://media.geeksforgeeks.org/wp-content/uploads/20250324181403779474/inheritence.webp" width="400" height="400">
 
 ```C++
-#include<bits/stdc++.h>
-using namespace std;
-
 class A{
-    public:
-      void funcA(){
-        cout<<"Base Class"<<endl;
-      }
+//Base class definition
 };
 // Class B is inherited from Class A
 class B : public A{
-    public:
-      void funcB(){
-        cout<<"Inherited from class A"<<endl;
-      }
+// Derived class definition
 };
-
-int main(){
-    B obj;
-    // As Class B inherited properties of A.
-    // We can access funcA from class B object also.
-    obj.funcA();
-    obj.funcB();
-    return 0;
-}
 ```
-**Output**
-> Base Class \
-Inherited from class A
-
-
 
 2. **Multiple Inheritance**: when one subclass is inherited from more than one base class is called multiple inheritance.
 
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20250411123937522065/inheritence3.webp" width="400" height="400">
 ```C++
 #include<bits/stdc++.h>
 using namespace std;
@@ -969,32 +947,11 @@ Protected Variable: 2
 
 ### Thanks for Reading 
 
-<img src="/assets/images/save.png" width="600" height="200">
+<!-- <img src="/assets/images/save.png" width="600" height="200"> -->
 
 ---
 
 ###
 
-#### Join us for all the latest offcampus job updates, webinar, hackathons, resume review and a lot more :heart::heart:
-
-<div align="left">
-  <a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="linkedin logo"  />
-  </a>
-  <a href="https://www.youtube.com/@amanchowdhury046" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="youtube logo"  />
-  </a>
-  <a href="https://telegram.me/offcampus_phodenge" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Telegram&logo=telegram&label=&color=2CA5E0&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="telegram logo"  />
-  </a>
-  <a href="https://www.instagram.com/aman_chowdhury_046/" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="instagram logo"  />
-  </a>
-  <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Whatsapp&logo=Whatsapp&label=&color=25D366&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="whatsapp logo"  />
-  </a>
-</div>
-
-###
 
 ---
