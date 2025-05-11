@@ -248,7 +248,7 @@ public:
 
 **Answer**: The main pillar of oops are given below.
 
-![pillar of OPPS](url(https://media.geeksforgeeks.org/wp-content/uploads/OOPs-Concepts.jpg))
+![pillar of OPPS](https://media.geeksforgeeks.org/wp-content/uploads/OOPs-Concepts.jpg)
 
 
 ---
