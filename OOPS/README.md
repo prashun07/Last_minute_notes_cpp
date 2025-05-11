@@ -255,12 +255,64 @@ public:
 
 ### 6: Inheritance
 
-**Answer**: Inheritance is one of the most important features of Object-Oriented Programming. The capability of a class to derive properties and characteristics from another class is called Inheritance.
+**Answer**: The capability of a class to derive properties and characteristics from another class is called Inheritance.
+Derived Class: The class that inherits properties from another class is called Sub class or Derived Class.
+Base Class: The class whose properties are inherited by a sub-class is called Base Class or Superclass.
+- Inheritance supports concepts of resuability.
+- The derived class inherits all the members (data members and member functions) of the base class and can add its own members.
+- The derived class can access the members of the base class using the scope resolution operator (::).
+- The derived class can also override the base class members if required.
+- The derived class can be used as a base class for further inheritance. 
 
+```C++
+#include <iostream>
+using namespace std;
+// Base class
+class BaseClass
+{
+  public:
+    int x;
+    void fun(){
+      cout << "Base class function" << endl;
+    }; 
+   // Base class code
+};
+class DerivedClass : access-specifier BaseClass //access-specifier is public in this example
+{
+  public:
+    int y;
+    // Derived class code
+    void fun(){
+      cout << "Derived class function" << endl;
+    }; //overriding the function of base class
+   // Derived class code
+};
+int main()
+{
+  DerivedClass obj; // Create an object of derived class
+  obj.x = 10; // Access the member of base class
+  obj.y = 20; // Access the member of derived class
+  cout << "x = " << obj.x << endl; // Print the value of x
+  cout << "y = " << obj.y << endl; // Print the value of y
+  // Call the function
+  obj.fun(); // Call the function of derived class
+  obj.BaseClass::fun(); // Call the function of base class
+  // Call the function of derived class
+  obj.DerivedClass::fun(); // Call the function of derived class
+  return 0;
+}
+output of above code
+> x = 10 \
+> y = 20 \
+> Derived class function \
+> Base class function \
+> Derived class function \  
+```
+- The access specifier is optional. It can be public, protected or private. If it is not specified, the default access specifier is private.
 
 **Real Life Example**
 
-<img src="/assets/images/inheritance.png" width="400" height="400">
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20220817100609/inheritance-660x454.png" width="400" height="400">
 
 There are 5 types of Inheritance:
 
@@ -270,7 +322,8 @@ There are 5 types of Inheritance:
     4. Hierarchical Inheritance.
     5. Hybrid Inheritance.
 
-1. **Single Inheritance**: When a subclass(child) is inherited from a base class is called single inheritance.
+1. **Single Inheritance**: When a subclass(child) is inherited from a base class(parent) is called single inheritance.
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20250324181403779474/inheritence.webp" width="400" height="400">
 
 ```C++
 #include<bits/stdc++.h>
