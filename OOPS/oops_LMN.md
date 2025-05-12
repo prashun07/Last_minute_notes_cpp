@@ -266,6 +266,9 @@ Base Class: The class whose properties are inherited by a sub-class is called Ba
 - The derived class can access the members of the base class using the scope resolution operator (::).
 - The derived class can also override the base class members if required.
 - The derived class can be used as a base class for further inheritance. 
+- Static members of the base class are not inherited by the derived class.
+- The constructors will be called by the complier in the order in which they are inherited. Base class   constructors will be called first, then derived class constructors.
+- The destructors will be called in reverse order in which the compiler is declared.
 
 ```C++
 #include <iostream>
@@ -615,7 +618,7 @@ int main()
 
 **Real Life Example**
 
-<img src="/assets/images/encapsulation.png" width="400" height="400">
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221207132325/ecapsulation_in_cpp.png" width="400" height="400">
 
 ```C++
 #include<iostream>
@@ -673,7 +676,7 @@ int main()
 
 **Real Life Example**
 
-<img src="/assets/images/abstraction.png" width="400" height="400">
+<img src="https://github.com/aman0046/LastMinuteRevision-OOP/blob/main/assets/images/abstraction.png?raw=true" width="400" height="400">
 
 
 ```C++
@@ -729,13 +732,12 @@ Polymorphism in C++ allows us to reuse code by creating one function that’s us
 
 **Real Life Example**
 
-<img src="/assets/images/polymorphism.png" width="400" height="400">
+<img src="https://github.com/aman0046/LastMinuteRevision-OOP/raw/main/assets/images/polymorphism.png" width="400" height="400">
 
 
-There are 2 types of Polymorphism:
+**Polymorphism is mainly divided into two types**
 
-    1. Compile time Polymorphism
-    2. Run time Polymorphism
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png" width="400" height="400">
    
 1. **Compile time Polymorphism**: Compile-time polymorphism is a polymorphism that is, the function call is resolved during the compilation process.
 
@@ -745,6 +747,8 @@ We can achieve Compile-time polymorphism by two ways:
 
 - When there are multiple functions with the same name but take different parameters as an arguments then these function are said to be overloaded.
 - Functions can be overloaded by changing the number of arguments or and changing the type of arguments.
+- Functions can't be overloaded by changing the return type of the function.
+- Function overloading is also called static polymorphism.
 
 
 ```C++
@@ -819,6 +823,8 @@ int main()
 **Output**
 > 12 + i9
 
+- Operators which can be overloaded are Arithmetic operators, Relational operators, Bitwise operators, Assignment operators, Increment and Decrement operators, etc.
+- Operators which cannot be overloaded are Scope resolution operator (::), Member selector operator (.), Sizeof operator, Conditional operator (?:), Typeid operator, etc.
 
 2. Runtime Polymorphism
 
@@ -878,6 +884,10 @@ int main() {
 Derived Class Function
 
 ---
+**Function Overriding**: Function overriding is a feature that allows a subclass or child class to provide a specific implementation of a method that is already defined in its superclass or parent class. When a method in a subclass has the same name, same parameters, and same return type as a method in its superclass, the method in the subclass overrides the method in the superclass.
+
+**Note**: Virtual function code example is also an example of function overriding.
+
 
 ### 10: Abstract Class
 
@@ -893,10 +903,10 @@ Example, let Shape be a base class. We cannot provide implementation of function
 
 **Answer**
 
-- Also called Absract function.
+- Also called Abstract function.
 - A pure virtual function in c++, is a virtual function for which we can have implementation, but we must override that function in the derived class, otherwise the derived class will also become abstract class.
 
-```
+```C++
 class X
 {
 	public:
@@ -1017,7 +1027,7 @@ Protected Variable: 2
 
 ### Thanks for Reading 
 
-<!-- <img src="/assets/images/save.png" width="600" height="200"> -->
+<img src="https://d26hzrxwbqmxrd.cloudfront.net/save-for-later-button-01.jpg" width="600" height="200">
 
 ---
 
