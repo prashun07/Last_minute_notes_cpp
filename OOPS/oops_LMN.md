@@ -590,18 +590,11 @@ int main()
 }              	
 ```
 **Output**  
-<details> 
-  ERROR!
-  /tmp/tERJa8gWB7/main.cpp: In function 'int main()':
-  /tmp/tERJa8gWB7/main.cpp:28:9: error: request for member 'fun' is ambiguous
-    28 |     obj.fun();
-        |         ^~~
-  /tmp/tERJa8gWB7/main.cpp:8:10: note: candidates are: 'void Base::fun()'
-      8 |     void fun() { cout << "Base" << endl; }
-        |          ^~~
-> To fix this error, we can use virtual inheritance.
+> error: request for member 'fun' is ambiguous \
+>    28 |     obj.fun(); \
+>        |     ~~~~~~^~~~ \
 
-</details>
+**NOTE:**  To fix this error, we can use virtual inheritance.
 
 ---
 
