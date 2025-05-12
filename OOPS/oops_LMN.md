@@ -1,29 +1,32 @@
 
 # Object Oriented Programming Notes - Last Minute Revision :white_check_mark: 
 
-Here we have last minute revision notes of object oriented programming language. These questions will familiarize you with the most important object-oriented programming concepts and help you ace your job interviews :raised_hands:
+This is revision notes of object oriented programming language. This will familiarize you with the most important object-oriented programming concepts and clarify concepts.( Written for C++ developers) :raised_hands:
 
 ---
 ## Table of Contents
-- [Object Oriented Programming Notes - Last Minute Revision :white_check_mark:](#object-oriented-programming-notes---last-minute-revision-white_check_mark)
-  - [Table of Contents](#table-of-contents)
-  - [Most Asked OOPS Interview Questions](#most-asked-oops-interview-questions)
-    - [1: What is OBJECT-ORIENTED PROGRAMMING?](#1-what-is-object-oriented-programming)
-    - [2: Class and Object](#2-class-and-object)
-    - [3: Constructor](#3-constructor)
-    - [4: Destructor](#4-destructor)
-    - [5: The main features of OOPs?](#5-the-main-features-of-oops)
-    - [6: Inheritance](#6-inheritance)
-    - [7: Encapsulation](#7-encapsulation)
-    - [8: Abstraction](#8-abstraction)
-    - [9: Polymorphism](#9-polymorphism)
-    - [10: Abstract Class](#10-abstract-class)
-    - [11: Pure Virtual Function](#11-pure-virtual-function)
-    - [12: Friend Class & Friend Function](#12-friend-class--friend-function)
-      - [Friend Class](#friend-class)
-      - [Friend Function](#friend-function)
-    - [13: Access Modifiers](#13-access-modifiers)
-    - [Thanks for Reading](#thanks-for-reading)
+<details>
+  <summary>📘 <strong>Object Oriented Programming Notes - Last Minute Revision ✅</strong></summary>
+
+  - 🔹 [Most Asked OOPS Interview Questions](#most-asked-oops-interview-questions)
+    - 🔸 [1: What is OBJECT-ORIENTED PROGRAMMING?](#1-what-is-object-oriented-programming)
+    - 🔸 [2: Class and Object](#2-class-and-object)
+    - 🔸 [3: Constructor](#3-constructor)
+    - 🔸 [4: Destructor](#4-destructor)
+    - 🔸 [5: The main features of OOPs?](#5-the-main-features-of-oops)
+    - 🔸 [6: Inheritance](#6-inheritance)
+    - 🔸 [7: Encapsulation](#7-encapsulation)
+    - 🔸 [8: Abstraction](#8-abstraction)
+    - 🔸 [9: Polymorphism](#9-polymorphism)
+    - 🔸 [10: Abstract Class](#10-abstract-class)
+    - 🔸 [11: Pure Virtual Function](#11-pure-virtual-function)
+    - 🔸 [12: Friend Class & Friend Function](#12-friend-class--friend-function)
+      - 🔹 [Friend Class](#friend-class)
+      - 🔹 [Friend Function](#friend-function)
+    - 🔸 [13: Access Modifiers](#13-access-modifiers)
+  - 🙏 [Thanks for Reading](#thanks-for-reading)
+
+</details>
 
 ## Most Asked OOPS Interview Questions
 
@@ -301,13 +304,14 @@ int main()
   obj.DerivedClass::fun(); // Call the function of derived class
   return 0;
 }
-output of above code
+```
+**Output**
 > x = 10 \
 > y = 20 \
 > Derived class function \
 > Base class function \
-> Derived class function \  
-```
+> Derived class function 
+
 - The access specifier is optional. It can be public, protected or private. If it is not specified, the default access specifier is private.
 
 **Real Life Example**
@@ -338,10 +342,12 @@ class B : public A{
 2. **Multiple Inheritance**: when one subclass is inherited from more than one base class is called multiple inheritance.
 
 <img src="https://media.geeksforgeeks.org/wp-content/uploads/20250411123937522065/inheritence3.webp" width="400" height="400">
-```C++
-#include<bits/stdc++.h>
-using namespace std;
 
+```C++
+
+#include <iostream>
+using namespace std;
+// Base class A and B
 class A{
     public:
       void func(){
@@ -360,30 +366,30 @@ class C : public A, public B{
 
     public:
       void func(){
-        cout<<"Inherited from class C"<<endl;
+        cout<<"Inherited from class A and class B"<<endl;
       }
 };
 
 int main()
 {
     C obj;
-    obj.A :: func();  // resolving ambiguity
-    obj.B :: func();
-    obj.func();
+    obj.A :: func();  // resolving ambiguity using :: while accessing base class function
+    obj.B :: func(); // resolving ambiguity 
+    obj.func(); // calling derived class function
     return 0;
 }
 ```
-
 **Output**
->Base class A \
-Base class B \
-Inherited from class A and B
+> Base class A \
+> Base class B \
+> Inherited from class A and class B
 
 
 3. **Multilevel Inheritance**: In this type of inheritance, a derived class is created from another derived class.
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20250324181621104892/Multilevel-inheritence2.webp" width="400" height="400"> 
 
 ```C++
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
 
 class A{
@@ -391,39 +397,55 @@ class A{
        void funcA(){
          cout<<"Base class A"<<endl;
        }
+       void func()
+       {
+           cout<< "Class A"<<endl;
+       }
 };
 // Class B inherited from Class A
 class B : public A{
      public:
        void funcB() {
-         cout<<"Inherted from class A"<<endl;
+         cout<<"Derived class B "<<endl;
+       }
+       void func()
+       {
+           cout << " Inherited from Class A" << endl;
        }
 };
 // Class C inherited from Class B
 class C : public B{
      public:
-       void func() {
-         cout<<"Inherited from class B"<<endl;
+       void funcC(){
+           cout<<"Derived class C"<<endl;
        }
+       void func() {
+         cout<<"Derived Class C : Inherited from class B"<<endl;
+       }
+       
 };
 
 int main()
 {
     C obj;
-    obj.funcA();
-    obj.funcB();
-    obj.func();
+    obj.funcA(); //accessing base class A
+    obj.funcB(); // accessing derived class B (parent to C)
+    obj.funcC(); // accessing derived class C
+    obj.func(); //accessing derived class c common in all class
     return 0;
 }
 ```
 **Output**
 > Base class A \
-Inherted from class A \
-Inherited from class B
+> Derived class B \
+> Derived class C \
+> Derived Class C : Inherited from class B
 
-
+**Question** What will happen if you access a function func() defined in both class A and class B? 
+**Answer**: It will give an error because the compiler will not be able to resolve the ambiguity. To resolve this ambiguity, we can use scope resolution operator (::) to specify which class function we want to access.
 
 4. **Hierarchical Inheritance**: In this type of inheritance, more than one subclass is inherited from a single base class.
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20250324181719120966/Hierarchical-inheritance.webp" width="400" height="400">  
 
 ```C++
 #include<bits/stdc++.h>
@@ -473,6 +495,8 @@ Inherited from class A
 
 5. **Hybrid Inheritance**: The inheritance in which the derivation of a class involves more than one form of any inheritance is called hybrid inheritance. Basically C++ hybrid inheritance is combination of two or more types of inheritance. It can also be called multi path inheritance.
 
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20250324181819952869/hybrid-inheritance.webp"  width="400" height="400">  
+
 ```C++
 #include <iostream>
 using namespace std;
@@ -516,7 +540,7 @@ class D : public B, public C
 int main()
 {	
 	//object of derived class D
-        D obj1;          
+  D obj1;          
  	obj1.sum();
  	return 0;
 }               	
@@ -525,6 +549,59 @@ int main()
 **Output**
 > Sum = 14
 
+obj1 can access x and y of base class if defined public.
+
+**Diamond Problem**: In multiple inheritance, if a derived class inherits from two base classes that have a common base class, then the derived class will have two copies of the common base class. This is called the diamond problem. To resolve this problem, we can use virtual inheritance.
+The ambiguity arises because the derived class has multiple paths to access members or methods inherited from the common ancestor, leading to confusion during method resolution and member access.
+
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/20240603173048/diamond-problem-in-cpp.webp" width="400" height="400">  
+
+```C++
+// C++ Program to illustrate the diamond problem
+#include <iostream>
+using namespace std;
+
+// Base class
+class Base {
+public:
+    void fun() { cout << "Base" << endl; }
+};
+
+// Parent class 1
+class Parent1 :  public Base {
+public:
+};
+
+// Parent class 2
+class Parent2 :  public Base {
+public:
+};
+
+// Child class inheriting from both Parent1 and Parent2
+class Child : public Parent1, public Parent2 {
+};
+
+int main()
+{
+    Child obj;
+    obj.fun();
+    
+    return 0;
+}              	
+```
+**Output**  
+<details> 
+  ERROR!
+  /tmp/tERJa8gWB7/main.cpp: In function 'int main()':
+  /tmp/tERJa8gWB7/main.cpp:28:9: error: request for member 'fun' is ambiguous
+    28 |     obj.fun();
+        |         ^~~
+  /tmp/tERJa8gWB7/main.cpp:8:10: note: candidates are: 'void Base::fun()'
+      8 |     void fun() { cout << "Base" << endl; }
+        |          ^~~
+> To fix this error, we can use virtual inheritance.
+
+</details>
 
 ---
 
@@ -921,7 +998,7 @@ void func(base& obj)
 int main()
 {
     Base obj;
-    funcobj);
+    funcobj();
  
     return 0;
     
