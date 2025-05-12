@@ -1,5 +1,6 @@
 **Question:** What is the difference between `virtual` for runtime polymorphism and `virtual` for multiple inheritance in C++?
 
+---
 ## 🧩 1. `virtual` for Runtime Polymorphism (Function Overriding)
 
 ### 📌 Use Case:
@@ -72,6 +73,7 @@ d.value = 10; // No ambiguity
 | Affects memory layout? | Not much                       | Yes (shared base subobject)    |
 | Diamond problem?       | ❌ Not related                  | ✅ Solves it                    |
 
+---
 
 **Question:** Why do we need to use pointers or references to call virtual functions?
 
@@ -110,6 +112,8 @@ int main() {
     return 0;
 }
 ```
+---
+
 **Question:** What are some practical use cases for virtual functions?
 
 **Answer:** Virtual functions are widely used in various domains. Here are some practical use cases:
