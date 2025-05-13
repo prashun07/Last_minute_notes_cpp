@@ -975,7 +975,7 @@ value.k    = 8;
 2. calloc()  - Allocates one or more memory blocks and initializes them to 0 (zero).
 3. realloc() - Allows you to change the size of a previous allocated memory block.  
 4. free()    - Free the memory allocated by a previous malloc(), calloc() or realloc(). 
-[👉 Click for more details](./memory.md)
+
 
 ```c
 // malloc - Allocates a memory block for 100 int's.
@@ -998,6 +998,9 @@ if (ptt_1 == NULL)
 free(ptr);
 
 ```
+
+[👉 Click for more details](./memory.md)
+---
 
 ## Types of includes
 
@@ -1070,6 +1073,7 @@ uint8_t * message_3 = "cemelhas_2\n";
 ```
 [👉 Click for more details](./C_strings.md)
 
+---
 
 ### Functions for manipulating files
 
