@@ -1009,23 +1009,19 @@ free(ptr);
 #include "main.h"
 
 ```
-TODO:
+
 ## Keyword static
 
 1. In a file, outside of a function means that the variable scope is only the file, it's only visible in the file. Used to restrict access to the variable from outside of the file.
 
 2. Inside a function, means that the variable is created in the first call to the function and it exists and maintains and can update the value in subsequent calls of the function.
 
-## Same ways of defining strings
+---
 
-1. char message_1 [] - Array of chars.
+### Strings
 
-2. char * message_2 - Pointer to chars. 
-
-3. uint8_t * message_3 - Pointer to uint8_t, equivalent to char. 
-
-```
-// ** 1 **
+```c
+// char message_1 [] - Array of chars.
 
 // A array of char's, '\0' terminated, but it doesn't have to be '\0' terminated.  
 char message_1[] = {'b','a','t','a','t','i','n','h','a','s','\n', '\0'};
@@ -1046,7 +1042,7 @@ message_1[0]
 message_1 = "ERROR\n";
 
 
-// ** 2 **
+// char * message_2 - Pointer to chars.
 
 // It places the '\0' automatically.
 char * message_2 = "cemelhas\n";
@@ -1066,95 +1062,18 @@ message_2
 // Makes the pointer char *, point to the array of characters, the inverse isn't valid.
 message_2 = message_1;
 
-
-// ** 3 **
+// uint8_t * message_3 - Pointer to uint8_t, equivalent to char. 
 
 // It places the '\0' automatically.
 uint8_t * message_3 = "cemelhas_2\n";
 
 ```
-
-## Functions for manipulating strings and general functions
-
-```
-// ** stdio.h **
-
-sprintf() - The same as printf but to a string.
-sscanf()  - The same as scanf but from a string.
+[👉 Click for more details](./C_strings.md)
 
 
-// ** stdlib.h **
+### Functions for manipulating files
 
-atoi() - Converts a string to a int.
-atof() - Converts a string to a double.
-atol() - Converts a string to a long int.
-
-rand()  - Returns a random number. 
-srand() - Returns a random number given a seed.
-
-atexit() - Runs a function handler at the exit of the program.
-
-getenv() - Get environment variables or proprieties from the
-           system.
-system() - Executes a string command on the host environment,
-           on the shell.
-
-bsearch() - Binary search.
-qsort()   - Quick sort.
-
-
-// ** string.h **
-
-memchr()   - Returns the first occurrence of a unsigned char in a
-            array or memory sequence.
-memcmp()   - Compares the first n chars of the sequence s1 and s2.
-memcpy()   - Copies the first n chars from s2 to s1.
-memmove()  - Very similar to memcpy() but works even if the chars
-             overlap.
-memset()   - Initializes a array or a memory block with a value.
-
-strcat()   - Concatenates a copy of s2 to s1.
-strchr()   - Returns the first occurrence of a char in a string.
-strcmp()   - Compares the chars of the sequence s1 with s2.
-strcoll()  - Transforms the string s1 to be suitable to be used
-             by memcmp() and strcmp().  
-strcpy()   - Copies the string pointed by s2 into a array s1.
-strcspn()  - Starting from s1 counts the chars that are not present
-             from s2.
-strerror() - Returns a pointer to an error message represented by
-             errnum.
-strlen()   - Returns the length of a string (in bytes). The '\0'
-             is not included.
-strncat()  - Appends up to n characters of string s2 to the end of
-             string s1.
-strncmp()  - Equal to strcmp() but only for n characters. 
-strncpy()  - Equal to strcpy() but only for n characters.
-
-strpbrk()  - It locates the first character of s1 that is present in s2.
-strrchr()  - It locates the last occurrence of a char in the string s.
-strspn()   - Counts the characters of s1 until it find characters that
-             are not present in s2. 
-
-strstr()   - Find the first occurrence of s2 in s1. 
-strtok()   - Divides the string into tokens.
-
-```
-
-## Functions for manipulating files
-
-1. Open a file.
-
-2. Read and write from / to a file.
-
-3. Random access.
-
-4. Read / write one block at a time.
-
-5. Close a file.
-
-```
-// ** 1 **
-
+```c
 #include <stddef.h>
 #include <stdio.h>
 
@@ -1186,8 +1105,6 @@ FILE * open_file(char *filename){
     return fp;
 }
 
-// ** 2 ** 
-
 // Read and write from / to a file.
 
 getc()   - Macro to read one char.
@@ -1212,7 +1129,9 @@ tmpfile() - Creates a temporary binary file.
 remove()  - Removes a file from file system.
 rename()  - Renames a file in the file system.
 setbuf()  - Alter the buffer proprieties for a file.
+```
 
+```c
 
 #include <stddef.h>
 #include <stdio.h>
@@ -1250,24 +1169,16 @@ char line[LINESIZE];
 while( fgets( line, LINESIZE - 1, fp1 ) != NULL )
    fputs( line, fp2)
 
-
-// ** 3 **
-
 // Random access.
 
 fseek() - Moves the file pointer inside the file
           to a random position. 
-
-
-// ** 4 **
 
 // Read / write one block at a time.
 
 fread()  - Read one block at a time.
 fwrite() - Writes one block at a time.
 
-
-// ** 5 **
 
 // Close a file.
 
@@ -1277,25 +1188,16 @@ fclose(fp)
 
 ## Function pointers
 
-1. Single function pointer.
-
-2. Array of function pointers.
-
-```
+```c
 void led_sequence(void);
 
 int main(void){
-
-    // ** 1 **
 
     // Declaration of a single function pointer.
     void (* const arr_pointers_to_functions) (void) = led_sequence;
 
     // Call the function, using the right function pointer.
     (*(arr_pointers_to_functions)) ();
-
-
-    // ** 2 **
 
     // Declaration of an array of pointers to functions with a parameter void and returning a void.
     // Fill it with functions.
@@ -1305,19 +1207,17 @@ int main(void){
 
     // Call the function, using the right function pointer.
     (*(arr_pointers_to_functions[menu_option])) ();
-
 }
 
 void led_sequence(void){
 
    // ...
 }
-
 ```
 
 ## C99 - stdint.h - Primitive fixed size types
 
-```
+```c
 // Include that has the primitive fixed size types.
 #include <stdint.h>
 
@@ -1326,21 +1226,20 @@ void led_sequence(void){
     uint16_t   int16_t
     uint32_t   int32_t
     uint64_t   int64_t
-
 ```
 
 ## Preprocessor Macros
 
 1. Always put the Macro inside parenthesis, so that the order of execution is always the same.
 
-```
+```c
 #define RCC_APB2_ENR_ADDR      (RCC_BASE_ADDR + RCC_APB2_ENR_OFFSET)
 
 ```
 
 2. Always protect the **.h** file content against multiple inclusion on the same .C file. 
 
-```
+```c
 #ifndef REG_BASE_ADDRESSES_H
 #define REG_BASE_ADDRESSES_H
 
@@ -1352,7 +1251,7 @@ void led_sequence(void){
 
 ## Technique for defining more than one statement in a preprocessor Macro.
 
-```
+```c
 // This is a technique in C programming to execute multiple C statements using a single C macro.
 // Placing a do__while loop that only executes once. 
 #define GPIO_G_SET()      do{ (GPIOA->MODE |= (1 << 0)); (GPIOA->MODE &= ~(1 << 0)); }while(0)
@@ -1361,19 +1260,11 @@ void led_sequence(void){
 
 ## C for Embedded Systems
 
-1. How to define registers based on the Memory Map base address of the peripheral and a specific register offset of that peripheral?
-
-2. How to SET and Clear bit's on a register?
-
-3. How to test if one bit transition from 0 to 1, that is bit 18?
-
-```
+```c
 // Include that has the primitive fixed size types.
 #include <stdint.h>
 
-
-// ** 1 **
-
+// How to define registers based on the Memory Map base address of the peripheral and a specific register offset of that peripheral?
 // Register that Enables the RCC peripheral Clock.
 #define RCC_BASE_ADDR          0x40012000UL
 #define RCC_APB2_ENR_OFFSET    0x44UL
@@ -1386,7 +1277,7 @@ void led_sequence(void){
 
 int main(void){
 
-    // ** 2 **
+    // How to SET and Clear bit's on a register?
 
     // The following case makes a set of one bit to '1'.
 
@@ -1410,8 +1301,7 @@ int main(void){
     *pGPIOAModeReg &= ~(0x3 << 16);    // **Clear**
     *pGPIOAModeReg |=  (0x2 << 16);    // **Set**
 
-
-    // ** 3 **
+    // How to test if one bit transition from 0 to 1, that is bit 18?
 
     // We test if one bit transition from 0 to 1, that is bit 18.    
     while( !(*pGPIOA_IOR_Reg & (1 << 18)) );
@@ -1423,9 +1313,9 @@ int main(void){
 
 1. The keyword **const** means that the it is constant, the content data or the address of the pointer. 
 
-2. The keyword **volatile** means that the content data or the address of the pointer is never optimized away by the compiler -O2 or something, because each time it is used a fresh copy of the data as to be fetched from memory. It is very useful, when dealing with registers on a microController or when several simultaneous threads are executing, or when a main thread is executing and a ISR will interrupt the main processing thread. Because code can be interrupted every access to this volatile variable should be fetched again from the memory or memory mapped register.
+2. The keyword **volatile** means that the content data or the address of the pointer is never optimized away by the compiler -O2 or something, because each time it is used a fresh copy of the data as to be fetched from memory. It is very useful, when dealing with registers on a microController or when several simultaneous threads are executing, or when a main thread is executing and a ISR will interrupt the main processing thread. Because code can be interrupted every access to this volatile variable should be fetched again from the memory or memory mapped register. 
 
-```
+```c
 #define SRAM_ADDRESS1    0x20000000UL
 
 // This means that the content of the pointer is "volatile".
@@ -1454,7 +1344,7 @@ uint32_t volatile * volatile p = (uint32_t *) SRAM_ADDRESS1;
 
 1. The complex way...
 
-```
+```c
 	// Menu text to TX:
 	char const * message_0 = "\n\n\n   Menu\n\n";
 	char const * message_1 = "1. LED animation.\n";
@@ -1473,10 +1363,8 @@ uint32_t volatile * volatile p = (uint32_t *) SRAM_ADDRESS1;
 
 2. The simple way ...
 
-```
+```c
     #include <string.h>
-
-    ...
 
 	// Menu text to TX:
 	char const * message = "\n\n\n   Menu\n\n"
@@ -1497,7 +1385,7 @@ uint32_t volatile * volatile p = (uint32_t *) SRAM_ADDRESS1;
 This is a Abstract Double Linked List, called jco_list and it's license is MIT Open Source. <br>
 The list interface follows. To see examples of the list usage see the tests inside the main.c source code file.
 
-```
+```c
 typedef struct node{
     void * elem;
     struct node * next;
@@ -1561,8 +1449,4 @@ int cmp_single_char(void * aIn, void * bIn);
 int cmp_null_term_str(void * aIn, void * bIn);
 
 ```
-
-# TODO:
--Implement a abstract ArrayList. <br>
--Implement a abstract HashTable. <br>
 
