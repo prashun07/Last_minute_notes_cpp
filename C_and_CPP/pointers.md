@@ -1,5 +1,18 @@
 ### Pointers in c
 Pointers are a fundamental feature of the C programming language, allowing for direct memory access and manipulation. Below are some common questions and answers related to pointers in C.
+
+```C
+data type *pointer_name;
+```
+example:
+```C
+int *ptr; // ptr is a pointer to an integer
+int a = 10;
+ptr = &a; // ptr now holds the address of variable a    
+printf("Value of a: %d\n", *ptr); // Dereferencing ptr to get the value of a
+printf("Address of a: %p\n", (void*)&a); // Printing the address of a
+printf("Address stored in ptr: %p\n", (void*)ptr); // Printing the address stored in ptr    
+```
 **Pointers**
 - A pointer is a variable that stores the address of another variable.
 - Pointers are declared using the `*` operator.
@@ -14,8 +27,17 @@ Pointers are a fundamental feature of the C programming language, allowing for d
 - Pointers can be used with the `&` operator to get the address of a variable.
 - Pointers can be used with the `->` operator to access members of a structure or class when using a pointer to that structure or class.
 - Pointers can be used with the `[]` operator to access elements of an array when using a pointer to that array.
+- size of a pointer is platform dependent, typically 4 bytes on 32-bit systems and 8 bytes on 64-bit systems.
+- size of pointer is indepentent of the type it points to, meaning an `int*` and a `char*` both have the same size on a given platform.
+
+- for a pointer ptr,
+  ptr prints address of the variable it points to, while `*ptr` prints the value stored at that address.
+  &ptr prints the address of the pointer itself.
+
 
 <img src="https://media.geeksforgeeks.org/wp-content/uploads/pointers-in-c.png" alt="Pointers in C" width="600"/>
+
+
 
 ### Pointer Arithmetic in C
 Pointer arithmetic is a powerful feature in C that allows you to manipulate memory addresses directly. This can be particularly useful when working with arrays and dynamic memory allocation. Below are some common questions and answers related to pointer arithmetic.

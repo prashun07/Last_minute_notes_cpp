@@ -6,41 +6,49 @@ Simple notes to revise the C programming language.
 - [Simple notes on the C Programming Language](#simple-notes-on-the-c-programming-language)
   - [Description](#description)
   - [Table of contents](#table-of-contents)
-  - [Names in C](#names-in-c)
-  - [Function that exits a program - exit()](#function-that-exits-a-program---exit)
-  - [printf and scanf](#printf-and-scanf)
-  - [Scaler types](#scaler-types)
-  - [TypeDef's](#typedefs)
-  - [Pointers](#pointers)
-  - [Multidimensional arrays](#multidimensional-arrays)
-  - [True vs False](#true-vs-false)
-  - [Switch](#switch)
-  - [Logical operators](#logical-operators)
-  - [Decrement and increment operators](#decrement-and-increment-operators)
-  - [Comparing floating point values](#comparing-floating-point-values)
-  - [Bit operators](#bit-operators)
-  - [sizeof operator](#sizeof-operator)
-  - [Structures](#structures)
-  - [Structure operators](#structure-operators)
-  - [Unions](#unions)
-  - [Dynamic memory allocation on the Heap](#dynamic-memory-allocation-on-the-heap)
-  - [Types of includes](#types-of-includes)
-  - [Keyword static](#keyword-static)
-  - [Same ways of defining strings](#same-ways-of-defining-strings)
-  - [Functions for manipulating strings and general functions](#functions-for-manipulating-strings-and-general-functions)
-  - [Functions for manipulating files](#functions-for-manipulating-files)
-  - [Function pointers](#function-pointers)
-  - [C99 - stdint.h - Primitive fixed size types](#c99---stdinth---primitive-fixed-size-types)
-  - [Preprocessor Macros](#preprocessor-macros)
-  - [Technique for defining more than one statement in a preprocessor Macro.](#technique-for-defining-more-than-one-statement-in-a-preprocessor-macro)
-  - [C for Embedded Systems](#c-for-embedded-systems)
-  - [Keyword **const** and **volatile**](#keyword-const-and-volatile)
-  - [Sizes for 32 bit microController](#sizes-for-32-bit-microcontroller)
-  - [Two ways of making a Menu with strings - char * - and send it to UART.](#two-ways-of-making-a-menu-with-strings---char----and-send-it-to-uart)
-- [Utils](#utils)
-  - [Abstract Double Linked List - jco_list](#abstract-double-linked-list---jco_list)
-- [TODO:](#todo)
-- [Have fun!](#have-fun)
+  - Names in C
+    - [variable](#variable)
+    - [Data types](#data-types)
+      - [Basic data types in C](#basic-data-types-in-c)
+      - [Derived data types in C](#derived-data-types-in-c)
+      - [User defined data types in C](#user-defined-data-types-in-c)
+        - [Identifiers](#identifiers)   
+        - [Keywords](#keywords)
+    - [Input and output functions](#input-and-output-functions)
+    - [Escape sequences](#escape-sequences)
+    - [Switch case statement](#switch-case-statement)
+    - [conditional operators](#conditional-operators)
+    - [Jump statements](#jump-statements)
+      - [break statement](#break-statement)
+      - [continue statement](#continue-statement)
+      - [goto statement](#goto-statement)
+    - [macros in c](#macros-in-c)
+    - [Function that exits a program - exit()](#function-that-exits-a-program---exit)
+    - [❌ Why not use void main()?](#why-not-use-void-main) 
+    - [TypeDef's](#typedefs)
+    - [Arrays](#arrays)
+    - [Strings](#strings)
+    - [Pointers](#pointers)
+    - [Multidimensional arrays](#multidimensional-arrays)
+    - [Logical operators](#logical-operators)
+    - [Decrement and increment operators](#decrement-and-increment-operators)
+    - [Comparing floating point values](#comparing-floating-point-values)
+    - [Bit operators](#bit-operators)
+    - [sizeof operator](#sizeof-operator)  
+    - [Structures in C](#structures-in-c)
+        - [definition of a structure](#definition-of-a-structure)
+        - [Declaration of a structure variable](#declaration-of-a-structure-variable)
+        - [Accessing the members of a structure](#accessing-the-members-of-a-structure)
+        - [size of a structure](#size-of-a-structure)
+        - [copy structure](#copy-structure)
+        - [Passing structures to functions](#passing-structures-to-functions)   
+        - [typedef's for structures](#typedefs-for-structures)
+    - [Bit fields](#bit-fields)
+    - [Unions in C](#unions-in-c)
+    - [dynamic memory allocation](#dynamic-memory-allocation)
+    - [Enumerations in C](#enumerations-in-c)
+    - [file handling](#file-handling)
+    - [Preprocessor directives](#preprocessor-directives-1)
 
 
 ## Names in C
@@ -51,8 +59,144 @@ They are user-defined labels for Variables, Functions, Constants, Arrays, Struct
 - Can use letters (A-Z, a-z), digits (0-9), and underscores _
 - Cannot be a keyword.
 
+## variable
+Variables are used to store data that can be modified during program execution. They have a name, a type, and a value.
 
-## Function that exits a program - exit()
+- local variables: declared inside a function or block and can only be accessed within that function or block.
+- global variables: declared outside any function and can be accessed from any function in the program.
+- static variables: declared with the `static` keyword, they retain their value between function calls and are only accessible within the function they are declared in.
+- register variables: declared with the `register` keyword, they are stored in CPU registers for faster access, but their address cannot be taken.
+- extern variables: declared with the `extern` keyword, they are used to access global variables defined in other files or translation units.
+- auto variables: declared with the `auto` keyword, they are the default storage class for local variables and are automatically allocated and deallocated when the function is called and exited, respectively.
+
+## Data types
+
+# Basic data types in C
+```c
+char for characters
+int for integers
+float for single precision floating point
+double for double precision floating point
+void for valueless data
+
+data type modifiers:
+short 
+long   
+signed
+unsigned
+// example:
+unsigned int num_1 = 2;
+
+// Scientific notation
+float num_2  = 5e-5;
+double num_3 = 3.7e12;
+```
+# Derived data types in C
+- Array
+- Pointer
+
+# User defined data types in C
+- structure
+- Union
+- Enumeration (enum)
+
+# Identifiers
+Identifiers are names given to various program elements such as variables, functions, arrays, structures, unions, and enums. They must follow the same rules as names in C.
+
+# Keywords
+Keywords are reserved words in C that have special meaning and cannot be used as identifiers. They are used to define the syntax and structure of the language. Some common keywords include:
+- auto, float, int, struct, break, for, long, switch, case, goto, register, typedef, char, if, return, union, continue, else, sizeof, void, default, enum, extern, static, volatile.
+
+## Input and output functions
+- scanf and printf
+
+```c
+#include <stdlib.h>
+
+int main(void){
+    int num_1 = 1;
+    int num_2 = 1;
+    char name[20];
+    printf("The number %d + %d = %d", num_1, num_2, num_1 + num_2);
+
+//these are called format specifiers
+    //  %d    signed integer
+    //  %f    floating point
+    //  %c    char
+    //  %s    NULL or '\0' terminated string
+    //  %x    Hexadecimal number
+    //  %o    Octal number
+    //  %lf  double
+    //  %p    pointer
+    //  %u    unsigned integer
+    //  %%   percent sign
+
+    int num_3;
+
+    scanf("%d", &num_3);
+
+    scanf("%s", name); // Read a string until a space or newline is found.
+    printf("Hello %s!\n", name);
+    // scanf("%[^\n]", name); // Read a string until a newline is found.
+    // or getline(name, sizeof(name)); // Read a string until a newline is found.
+    return 0;
+}
+```
+## Escape sequences
+- `\n` - New line
+- `\t` - Horizontal tab
+- `\\` - Backslash
+- `\'` - Single quote
+
+## Switch case statement
+```c
+#include <stdio.h>
+int main()
+{
+    switch (expression) {
+        case constant_1:
+            // code to be executed if expression == constant_1
+            break;
+        case constant_2:
+            // code to be executed if expression == constant_2
+            break;
+        // more cases...
+        default:
+            // code to be executed if expression doesn't match any case
+    }
+}
+
+```
+## conditional operators
+```c
+//(condition) ? expression_if_true : expression_if_false;
+int a = 5, b = 10;
+int max = (a > b) ? a : b; // max will be 10
+```
+## Jump statements
+
+# break statement
+-  used to exit from a loop and bring the program control to the next statement following the loop.
+# continue statement
+-  used to skip the current iteration of a loop and proceed to the next iteration.
+# goto statement
+- used to transfer control to a labeled statement in the program. It is generally discouraged due to its potential to create unstructured code.
+
+## macros in c
+- a macro is a preprocessor directive that defines a name for a piece of code or a constant value.
+```c
+#define DATE 31 //object like macro
+#define SQUARE(x) ((x) * (x)) //function like macro
+#define MAX(a, b) ((a) > (b) ? (a) : (b)) //function like macro with conditional operator
+#define INSTAGRAM_FOLLOWERS 1000  // chain macros
+// Multi-line Macro definition
+#define ELE 1, \
+            2, \
+            3
+```
+
+
+** Function that exits a program - exit()
 
 ```c
 #include <stdlib.h>
@@ -68,31 +212,6 @@ int main(void){
 
 ```
 
-## printf and scanf
-
-```c
-#include <stdlib.h>
-
-int main(void){
-    int num_1 = 1;
-    int num_2 = 1;
-
-    printf("The number %d + %d = %d", num_1, num_2, num_1 + num_2);
-
-    //  %d    integer
-    //  %f    floating point
-    //  %c    char
-    //  %s    NULL or '\0' terminated string
-    //  %x    Hexadecimal number
-    //  %o    Octal number
-
-    int num_3;
-
-    scanf("%d", &num_3);
-    return 0;
-}
-```
-
 **❌ Why not use void main()?**
 
 - Undefined behavior: It’s non-standard.
@@ -100,72 +219,6 @@ int main(void){
 - Portable code should conform to the standard (int main()).
 - Some compilers may allow it, but it’s not guaranteed to work everywhere.
 
-## Scaler types
-
-```c
-//Primitive types
-char
-short int
-int
-long int
-
-float
-double
-
-unsigned
-
-// example:
-unsigned int num_1 = 2;
-
-// Scientific notation
-float num_2  = 5e-5;
-double num_3 = 3.7e12;
-
-
-//Numerical constants
-# define NUM_A    5.5     /* Double constant       */
-# define NUM_B    5.5f    /* Float constant        */
-# define NUM_C    5.5e6L  /* Long double constant  */
-
-# define ADDRESS    0x20004000UL  /* Unsigned Long constant  */
-
-
-//int vs float calculations
-int i = 1;
-int j = 2;
-
-int k_1 = i/j;               // Result 0
-
-float k_2 = i/j;             // Result 0.0
-
-float k_3 = (float) i / j;   // Result 0.5
-
-//enum - enumeration types
-enum { red, green, blue } color;
-
-color = green;
-color = blue;
-
-// C99 - bool - boolean type - stdbool.h
-#include <stdbool.h>
-
-bool flag = false;
-flag = true;
-if (flag){
-    print("Flag is true!\n");
-}
-
-
-// Data type
-void
-
-
-// Remainder %
-int x = 3;
-int y = 2;
-z = x % y;   // Result z = 1
-
-```
 
 ## TypeDef's
 
@@ -190,116 +243,104 @@ typedef enum {
 COLOR_T my_color = green;
 
 ```
+## Arrays
+- fixed size homogeneous collection of elements stored in contiguous memory locations.
+- Elements are accessed using indices.
+- size cannot be changed after declaration.
+
+syntax:
+```c    
+data_type arr_name [size1];   // 1D array
+data_type arr_name [size1][size2];   // 2D array
+data_type arr_name [size1][size2][size3];    // 3D array
+```
+
+## Strings
+- Strings in C are arrays of characters terminated by a null character `\0`.
+- They can be defined using character arrays.
+Syntax:
+```c
+// char string_name [] = "string literal";
+// char string_name[size];
+char str_name[size];   // Character array
+char str_name[] = "Hello";   // String literal
+```
+* string functions:
+- strlen() - returns the length of a string.
+- strcpy() - copies a string to another string.
+- strcat() - concatenates two strings.
+- strcmp() - compares two strings.
+- strchr() - finds the first occurrence of a character in a string.
+- strstr() - finds the first occurrence of a substring in a string.
+
+```c
+// char message_1 [] - Array of chars.
+
+// A array of char's, '\0' terminated, but it doesn't have to be '\0' terminated.  
+char message_1[] = {'b','a','t','a','t','i','n','h','a','s','\n', '\0'};
+
+// Also valid - '\0' terminated string.
+char message_1[] = "batatinhas\n"; // '\0' (null terminator) automatically added by the compiler.
+
+
+// The address of the first position of the array.
+message_1
+
+// The first character, the character 'b'.
+message_1[0]
+
+// The address of the second character, the address of character 'a'.
+&message_1[1]
+
+// Attribution of a string to an char array. ILLEGAL
+message_1 = "ERROR\n";
+
+
+// char * message_2 - Pointer to chars.
+
+// It places the '\0' automatically.
+char * message_2 = "cemelhas\n"; (read-only string literal)
+
+// The address of the first character of the '\0' terminated string.
+message_2
+
+// The first character 'c' of the '\0' terminated string.
+*message_2
+
+// The third character 'm' of the '\0' terminated string.
+*(message_2 + 2)
+
+// Attribution of character 'p' to the third character.
+*(message_2 + 2) = 'p'; // ILLEGAL, because the string literal is read-only.
+
+// Makes the pointer char *, point to the array of characters, the inverse isn't valid.
+message_2 = message_1;
+
+// uint8_t * message_3 - Pointer to uint8_t, equivalent to char. 
+
+// It places the '\0' automatically.
+uint8_t * message_3 = "cemelhas_2\n";
+
+```
+[👉 Click for more details](./C_strings.md)
 
 ## Pointers
 
-```c
-int j = 2;
-// The address of an object.
-&j
-
-// Initialization of pointer. 
-
-// Pointer to int, initialized with the address of variable j.
-int *p1 = &j;
-
-
-// Dereferencing a pointer. The value pointed by the pointer.
-int k = *p1;
-
-// Pointer arithmetic.
-char * pC_1 = (char *) 0x02UL;
-char * pC_2;
-
-pC_2 = pC_1 - 1;   // Address: 0x01
-pC_2 = pC_1 + 1;   // Address: 0x03
-pC_2 = pC_1 + 2;   // Address: 0x04
-
-
-int * pI_1 = (int *) 8UL;
-int * pI_2, * pI_3, * pI_4;
-
-pI_2 = pI_1 - 1;   // Address: 4  Step 4 addresses bytes.
-pI_3 = pI_1 + 1;   // Address: 12  Step 4 addresses bytes.
-pI_4 = pI_1 + 2;   // Address: 16  Step 4 * 2 addresses bytes.
-
-
-// Pointer subtraction.
-int i = pI_4 - pI_2;   //  Result i = 3
-
-int i = pI_2 - pI_4;   //  Result i = -3
-
-
-// NULL pointer.
-int * pI_1 = 0;        // The NULL pointer.
-int * pI_1 = NULL;     // Also the NULL pointer.
-
-
-// Iterate until NULL pointer.
-
-char * p = "batatinhas";
-
-while(p){
-    // Iterate until NULL pointer.
-}
-
-// Passing pointers to functions arguments.
-
-void clear(int * p){
-    *p = 0;
-}
-
-int main(void){
-    int ar_vars[2] = { 1, 2 };
-    clear(&ar_vars[1]);        // Result ar_vars[2] = { 1, 0 }
-
-    // We could also pass.
-    clear(ar_vars);        // that is the same of clear(&ar_vars[0]); Result ar_vars[2] = { 0, 0 }
-}
-
-// Accessing arrays with pointers.
-
-int ar_vars[4] = { 0, 1, 2, 3 };
-
-// IMPORTANT: "ar_vars" is the same as "&ar_vars[0]"
-
-// IMPORTANT: "ar_vars[n]" is the same as "*(ar_vars + n)" and is the same as "*(p + n)" 
-//             if p is a pointer to the first position.
-
-
-// Arrays of pointers.
-int i, j, k = 1;
-
-int *p[];
-
-p[0] = &i;
-p[1] = &j;
-p[2] = &k;
-
-int z = *p[0] + *p[1] + *p[2]; 
-
-// Result z = 3
-
-
-// Pointers to Pointers
-
-// Fill with addresses.
-int   j    = 2;
-int  *p_A  = &j;
-int **p_B  = &p_A;
-
-// Dereference the pointers.
-int x = *p_A;   // Result x = 2
-
-int z = **p_B;  // Result z = 2
-
-```
+- A pointer is a variable that stores the address of another variable.
+ Note : there is seperate readme file for pointer, refer [C_and_CPP/pointers.md](C_and_CPP/pointers.md)
+* types of pointers:
+  - Null pointer: A pointer that does not point to any valid memory location.
+  - Void pointer: A pointer that can point to any data type.
+  - wild pointer: A pointer that points to a random memory location, not initialized.
+  - Dangling pointer: A pointer that points to a memory location that has been freed or deallocated.
+  - Function pointer: A pointer that points to a function.
+  - Pointer to pointer: A pointer that points to another pointer.
+  - Array of pointers: An array where each element is a pointer.
 
 ## Multidimensional arrays
 
 ```c
 // Initialization
-
 int ar[4][3] = {{1, 2},          // Row x Column
                 {3},
                 {4, 5}};
@@ -333,8 +374,6 @@ int clear(int **ar_tmp, size_row, size_column, position_clear_x, position_clear_
     // the indexing of the using pointers and pointer arithmetic. 
 
 }
-
-
 // To pass to a function an array with a single dimension.
 
 int clear(int ar_tmp[], size_row, position_clear){
@@ -348,58 +387,6 @@ clear(ar);
 int clear(int *ar_tmp, size_row, position_clear){
     *(ar_temp + position_clear) = 0;
 }
-
-```
-
-## True vs False
-
-```c
-// How logic works?
-
-int num_k = 0;  // 20
-
-if (num_k){   // This is (num_k != 0)  True
-
-}else{        // This is (num_k == 0)  False    
-
-}
-
-// Ternary operator.
-int i = (2 > 1) ? 1 : 2;
-
-// Short circuit with operators. Those are valid.
-
-if (a && 1 / a){
-
-}
-
-if (ptr && *ptr++){
-
-}
-
-```
-
-## Switch
-
-```c
-int i = 20;
-int j;
-
-switch(i){
-    case 0:
-        j = 0;
-        break;
-    case 1:
-        j = 1;
-        break;
-    case 2:
-        j = 2;
-        break;
-    default:
-        printf("test");
-        break;
-}
-
 ```
 
 ## Logical operators
@@ -434,196 +421,18 @@ if ( (x > 2.0 - 0.0001) && (x < 2.0 + 0.0001)){
 
 ## Bit operators
 
-```
->> - Right shift
-<< - Left shift
-&  - Bitwise AND
-|  - Bitwise OR
-^  - Bitwise XOR
-~  - Bitwise complement
-
-```
-
-
 ```c
-// REG_A - Is a example Micro-controller peripheral register,
-//         that is memory mapped into a memory address.
-//         They can be found in the datasheet of the MCU,
-//         in the section of the registers of the specific
-//         peripheral and there, you can find also the info
-//         on the functionality of every bit in it.
-//         Some register are Write only, some are Read only,
-//         some of them are Read and Write.
-//         The Datasheet, User Guide and Erratas of them
-//         for the MCU are the truth that will guide you! 
-
-
-// SET BIT - Set Bit 2 to 1 (True) on REG_A with OR:
-   REG_A |= (1 << 2);
-
-   // Set bit 2 and bit 4 to 1 (True):
-   REG_A |= ( (1 << 2) | (1 << 4) );   
-
-
-// CLEAR BIT - Clear Bit 2 to 0 (False) on REG_A with AND and NOT:
-   REG_A &= ~(1 << 2);
-
-   // Clear bit 2 and bit 4 to 0 (False):
-   REG_A &= ~( (1 << 2) | (1 << 4) );
-
-
-// TOGGLE BIT - Toggle or flip bit 2 on REG_A with XOR:
-   REG_A ^= (1 << 2); 
-
-   // Flip bit 2 and bit 4 from 0 -> 1 or from 1 -> 0:
-   REG_A ^= ( (1 << 2) | (1 << 4) );
-
-
-
-// Make a one bit light up from right to left and from left to right:
-
-#define DELAY_TIME 300  /* ms */
-
-// PORTB is a 8 bit ports.
-REG_A = 0;   // Clears REG_A.
-uint8_t i;
-
-// From right to left.
-for(i=0; i < 8; i++) {
-   REG_A |= (1 << i);       // Set bit.
-   _delay_ms(DELAY_TIME);
-   REG_A &= ~(1 << i);      // Clear bit.
-}
-
-// From left to right.
-for(i=7; i < 255; i--) {
-   REG_A |= (1 << i);       // Set bit.  
-   _delay_ms(DELAY_TIME);
-   REG_A &= ~(1 << i);      // Clear bit.
-}
-
-// Note: In the place of i < 255,
-//       can't use i < 0 neither i <= 0.
-//       The last one will give you
-//       a infinite loop because of underflow. 
-
-```
----
-**How to test if the bit of register is set to 1 or 0?**
-```c
-// Test if the 2 bit is 1 (True).
-
-// REG_A   : xxxx xxxx
-// (1 << 2): 0000 0100
-//       & : 0000 0x00
-
-// In C, "if" is FALSE if is zero
-// and TRUE for all other values. 
-
-if ( REG_A & ( 1<<2 ) ) {
-  do_something();
-}
-
-
-#define BIT_SHIFT(bit)         ( 1 << (bit) ) 
-#define BIT_IS_SET(reg, bit)   ( (reg) & BIT_SHIFT(bit) ) 
-#define BIT_IS_CLEAR(reg, bit) ( !( (reg) & BIT_SHIFT(bit) ) ) 
-#define LOOP_UNTIL_BIT_IS_SET(reg, bit)   do { } while ( BIT_IS_CLEAR(reg, bit) ) 
-#define LOOP_UNTIL_BIT_IS_CLEAR(reg, bit) do { } while ( BIT_IS_SET(reg, bit) ) 
-
-if (BIT_IS_SET(REG_A, 2)) {
-   do_something();  
-}
-```
-
----
-```c
-// To set a number or bit mask, 
-// by clear the first 4 bit's
-// and set the first 2 bit's to
-// the number 3 (0000 0011) do:
-
-#define PC3 0x3 // 0000 0011
-
-REG_A = REG_A & 0b11110000;   // clear all 4 bits
-REG_A = REG_A | PC3;          // set the bits we need 
-
-// More compact ways of doing it. 
-
-REG_A = (0b11110000 & REG_A) | PC3; 
-
-// or
- 
-REG_A = (0xf0 & REG_A) | PC3;
-
-// or
-
-REG_A = (0xf0 & REG_A) | 3;
-
-
-// Important Note: 
-//   The bit manipulation notes are modified
-//   versions from the fantastic book:
-//
-//   Make: AVR Programming by Elliot Williams
-//   
-//   A can't recommend enough this book to all future embedded
-//   or micro-controller developers because it's a really
-//   important stepping stone in your journey
-//   for every kind, brand and family of MCU not
-//   just AVR. This book is that good!
-//
-//   With it, you will learn 6 things, principles:
-//      1. - How to program a MCU just from registers.
-//      2. - How to read and use a MCU datasheet.
-//      3. - How to the set of most common MCU peripherals work
-//           and how to use them well.
-//      4. - Bit fiddling and how to use timers and interrupts well.
-//      5. - Good practices of MCU development
-//           and advanced stuff like ADC's, SPI, I2C, clocks and more.
-//      6. - Some really cool projects.
-//
-// Final note: This book is a labour of love
-//             and you can see it in every word of it!
-//             Make yourself a favour and grab a copy of it!
-
-```
-
-
-**Simple debounce routine**
-
-```c
-#define DEBOUNCE_TIME  1000    /* ms */
-#define BUTTON_PIN_A      1
-
-uint8_t debounce_button_A() {
-  if ( BIT_IS_CLEAR( BUTTON_PIN_PORT_REG, BUTTON_PIN_A ) ) {
-     // The button has a pull-up resistor
-     // so it's active low, and we test if it is zero,
-     // here it is pressed.
-     _delay_us( DEBOUNCE_TIME );
-     if ( BIT_IS_CLEAR( BUTTON_PIN_PORT_REG, BUTTON_PIN_A ) ) {
-       // We wait 1 ms and see if it is still pressed,
-       // after the elapsed time and we return the state
-       // of the button.
-       return(1);
-     }
-  }
-  return(0);
-} 
-
-
-// To use do:
-
-if (debounce_button_A()) {
-   do_something();   
-}
-
+>> // Right shift
+<< // Left shift
+&  // Bitwise AND
+|  // Bitwise OR
+^  // Bitwise XOR
+~  // Bitwise complement
 ```
 
 ## sizeof operator
 
-```
+```c
 sizeof(char);    // 1 bytes
 sizeof(int);     // 4 bytes  - Value depends on the CPU architecture and compiler.
 sizeof(int *);   // 8 bytes  - For a 64 bits CPU
@@ -638,39 +447,218 @@ int num_elems = sizeof(ar_var) / sizeof(ar_var[0]) ;   // 2 elements
 
 ```
 
-## Structures
+## Structures in C
 
-1. Definition of a structure and declaration of a variable.
+- user defined data type.
+- can contain different data types.
+- struct keyword is used to define a structure.
 
-
+# definition of a structure
 ```c
 // Definition of a structure.
+struct structure_name {
+    data_type member_1;
+    data_type member_2;
+    ...
+}; // no memory is allocated for the structure at this point.
+
+// Definition of a structure. Example 1
 struct car{
     char brandName[];
     char *model;
     int numDoors;
 };
-
-// Declaration of the variable of the structure.
-struct car mycar;
-
-
-// Definition of a structure.
+// Definition of a structure. Example 2
 struct car{
     char brandName[];
     char *model;
     int numDoors;
-} cs, cs_ar[10], *pcs;    
+} cs, cs_ar[10], *pcs;  
+```
 
-// cs.numDoors - Variable car structure.
+# Declaration of a structure variable
+```c
+// Declaration of the variable of the structure to use it
+struct structure_name variable_name;
+// Example 
+struct car mycar;
+```
+# Accessing the members of a structure.
+ - dot operator is used to access the members of a structure.
+ - in case of a pointer to a structure, the arrow operator is used.
 
-// cs_ar[1].numDoors - Variable array of car structures.
+```c
+cs.numDoors=5; //Variable car structure.
 
-// (* pcs).numDoors <=> pcs->numDoors - Pointer do structure of car.
+cs_ar[1].numDoors=4; //Variable array of car structures.
+
+(* pcs).numDoors=2;  // or pcs->numDoors=2; (both are same) //Pointer to structure of car.
+```
+
+Structure members cannot be initialized at the time of structure definition.
+
+```c
+// Initialization of a structure variable.
+struct structure_name{
+    data_type member_1=value1; //Compiler error. connot initialize members here.
+    //because there is no memory allocated for the structure at this point.
+};
+``` 
+
+# initialization of a structure members
+- uninitialized structure variable contains garbage values.
+
+Initialization using assignment operator.
+```c
+struct point{
+    int x;
+    int y;
+};
+
+int main(){
+    struct point p1;
+    p1.x = 10; //using assignment operator (=).
+    p1.y = 20;
+    printf("Point p1: (%d, %d)\n", p1.x, p1.y);
+    return 0;
+}
+```
+Initialization using initializer list.
+```c    
+struct point {
+    int x;
+    int y;
+};
+int main()
+{
+    struct point p1 = {10, 20}; //using initializer list.
+
+    printf("Point p1: (%d, %d)\n", p1.x, p1.y);
+    return 0;
+}
+```
+Initialization using designated initializers (C99 and later).
+```c
+struct point {
+    int x;
+    int y;
+};
+int main()
+{
+    struct point p1 = {.x = 10, .y = 20}; //using designated initializers.
+
+    printf("Point p1: (%d, %d)\n", p1.x, p1.y);
+    return 0;
+}
+```
+Initialization using compound literals (C99 and later).
+```c    
+struct point {
+    int x;
+    int y;
+};
+int main()
+{
+    struct point p1 = (struct point){10, 20}; //using compound literals.
+
+    printf("Point p1: (%d, %d)\n", p1.x, p1.y);
+    return 0;
+}
+```
+
+Initalizing zero values for all members of a structure.
+```c
+struct point {
+    int x;
+    int y;
+};
+int main()
+{
+    struct point p1 = {0}; // All members initialized to zero.
+
+    printf("Point p1: (%d, %d)\n", p1.x, p1.y);
+    return 0;
+}
+```
+# size of a structure
+- The size of a structure is the sum of the sizes of its members, plus any padding added by the compiler for alignment purposes.
+ways of structure packing:
+- `#pragma pack(n)` - where `n` is the alignment boundary (e.g., 1, 2, 4, 8, etc.).
+- `__attribute__((packed))` - GCC specific attribute to pack the structure without padding.
+
+# copy structure
+
+Copying a structure variable to another structure variable is done using the assignment operator. this method of copying is called "shallow copy".
+
+```c    
+struct point {
+    int x;
+    int y;
+};
+int main()
+{
+    struct point p1 = {10, 20};
+    struct point p2;
+
+    p2 = p1; // Copying structure p1 to p2.
+
+    printf("Point p2: (%d, %d)\n", p2.x, p2.y);
+    return 0;
+}
+```
+# Passing structures to functions
+- Structures can be passed to functions by value or by reference.
+- When passed by value, a copy of the structure is made, and changes to the copy do not affect the original structure.
+- When passed by reference, a pointer to the structure is passed, allowing the function to modify the original structure.
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+// Function to modify a structure by value.
+
+void modifyByValue(struct point p) {
+    p.x = 100; // This change will not affect the original structure.
+    p.y = 200;
+}
+// Function to modify a structure by reference.
+void modifyByReference(struct point *p) {
+    p->x = 100; // This change will affect the original structure.
+    p->y = 200;
+}
+int main() {
+    struct point p1 = {10, 20};
+
+    // Passing by value
+    modifyByValue(p1);
+    printf("After modifyByValue: (%d, %d)\n", p1.x, p1.y); // Original structure remains unchanged.
+    //output (10, 20)
+
+    // Passing by reference
+    modifyByReference(&p1);
+    printf("After modifyByReference: (%d, %d)\n", p1.x, p1.y); // Original structure is modified.
+    //output (100, 200)
+    return 0;
+}
+```
 
 
+# typedef's for structures
+
+- typedef is used to create an alias for an existing data type.
+
+```c
 // Definition of a new type with typedef of a structure.
-typedef struct {
+typedef struct structName{
+    //member definition
+}typedef_name;
+//or
+struct structName{
+    //member definition
+};
+typedef struct structName typedef_name;
+
+// Example of typedef of a structure.
+typedef struct { 
     char brandName[];
     char *model;
     int numDoors;
@@ -681,50 +669,57 @@ CAR myCar;
 CAR myCar[10];
 CAR *pCar;
 
-
 // Initialization  of a structure.
 myCar = { "Suzuki", "Cleo", 5 };
+```
+```c
+typedef struct{
+    int val_1;
+    int val_2;
+} TAG_T;
+
+void func_1(TAG_T s1){ // Passing by value.
+    s1.val_1 = .... ;
+}
+// or...
+void func_1(TAG_T * pS1){
+    pS1->val_1 = .... ;
+} //passing by reference.
+```
 
 
+# Nested structures.
 
-// Iterating trough a structure array in a fast way.
+- Embedded structure nesting: the structure is defined inside another structure.
+- Separate structure nesting: the structure is defined separately and then used as a member of another structure.
 
-// file 'car.h'
+```c
+#include <stdio.h>
 
-  #ifndef CAR_H
-  #define CAR_H
+// Child structure declaration
+struct child {
+    int x;
+    char c;
+};
 
-  // Contains the definition of the new type car that is a structure.
-  typedef struct {
-      char brandName[];
-      char *model;
-      int numDoors;
-  } CAR;
+// Parent structure declaration
+struct parent {
+    int a;
+    struct child b;
+};
 
-  #endif
+int main() {
+    struct parent p = { 25, 195, 'A' };
 
-// file 'car.c'
+    // Accessing and printing nested members
+    printf("p.a = %d\n", p.a);
+    printf("p.b.x = %d\n", p.b.x);
+    printf("p.b.c = %c", p.b.c);
+    return 0;
+}
+```
 
-  #include "car.h"
-
-  CAR all_cars[10];
-
-  int isThereACarWithNumOfDoors(CAR car_s[], int size, int numDoors){
-      CAR *pCar;
-      CAR *pLastPlusOne = &car[size]:
-      for(pCar = car_s; pcar < pLastPlusOne; ++p){
-          if (pCar->numDoors == numDoors){
-              return 1;                    // break and continue
-          }
-      }
-      return 0;
-  }
-
-  int exists = isThereACarWithNumOfDoors(all_cars, 10, 4);
-
-
-// Nested structures.
-
+```c
 // With struct and variable declaration.
 struct car{
     char brandName[];
@@ -762,10 +757,24 @@ CAR_T *pCar_s;
 // Accessing the nested structure member.
 car_s.license_plate_date.day   = 1;
 pCar_s->license_plate_date.day = 1;
+```
 
+# Self referencing structures.
 
-// Self referencing structures.
+The self-referential structures are those structures that contain references to the same type as themselves i.e. they contain a member of the type pointer pointing to the same structure type.
 
+Example:
+```c
+struct str {
+    int mem1;
+
+  	// Reference to the same type
+   struct str* next;
+};
+```
+Such kinds of structures are used in different data structures such as to define the nodes of linked lists, trees, etc.
+
+```c
 // IMPORTANT NOTE: You can only do self referencing structures
 //                 with struct and not with typedef.
 //                 But you can use typedef in the following way.
@@ -804,9 +813,31 @@ typedef struct node_A NODE_A_T;
 typedef struct node_B NODE_B_T;
 
 // Personal note: See this with more attention regarding the typedef's.
+```
+# Structure pointer
+- a pointer to a structure is a variable that holds the address of a structure. (->)arrow operator is used to access the members of a structure through a pointer.
 
+```c
+#include <stdio.h>
 
-// Bit Fields
+// Structure declaration
+struct Point {
+    int x, y;
+};
+
+int main() {
+    struct Point p = { 1, 2 };
+
+    // ptr is a pointer to structure p
+    struct Point* ptr = &p;
+
+    // Accessing structure members using structure pointer
+    printf("%d %d", ptr->x, ptr->y);
+
+    return 0;
+}
+```
+## Bit Fields
 
 struct date{
     uint32_t day:5;
@@ -815,140 +846,6 @@ struct date{
 }
 
 typedef struct date DATE_T;
-
-
-// Passing structures to functions.
-// Pass by value or pass by reference.
-
-// If you pass by value all the structure bytes have to be copied,
-// if you pass by reference only the 4 bytes of a pointer in
-// a 32 bits architecture, or the 8 bytes of a 64 bit architecture
-// have to be copied to the function parameters. 
-//
-// NOTE: In this regard, it's different that for array's because
-//       arrays are always passed by reference, coping of the address. 
-
-
-struct tag{
-    int val_1;
-    int val_2;
-}
-
-struct tag var_A;
-
-
-// By value ...
-
-void func_1(struct tag s1){
-    s1.val_1 = .... ;
-}
-
-// call passing all the structure.
-func1(var_A);
-
-
-// By reference ...
-
-void func_1(struct tag * pS1){
-    pS1->val_1 = .... ;
-}
-
-// call passing the address.
-func1( &var_A );
-
-
-// IMPORTANT NOTE: The same can be made with typedef's....
-
-typedef struct{
-    int val_1;
-    int val_2;
-} TAG_T;
-
-void func_1(TAG_T s1){
-    s1.val_1 = .... ;
-}
-
-// or...
-
-void func_1(TAG_T * pS1){
-    pS1->val_1 = .... ;
-}
-
-
-// Returning a structure from a function. By value and by reference.
-
-typedef struct{
-    int val_1;
-    int val_2;
-} RET_VAL_T;
-
-
-// By value ...
-
-RET_VAL_T calc_A(){
-    RET_VAL_T ret;
-    ret.val_1 = 1;
-    ret.val_2 = 2;
-    return ret;
-}
-
-RET_VAL_T temp = calc_A(); 
-
-
-// By reference ...
-
-RET_VAL_T * calc_B(){
-    static RET_VAL_T ret;
-    ret.val_1 = 1;
-    ret.val_2 = 2;
-    return &ret;
-}
-
-RET_VAL_T pTemp = calc_B();
-
-
-//******
-// The same can be made with struct not using typedef's.
-
-struct ret_val{
-    int val_1;
-    int val_2;
-};
-
-
-struct ret_val calc_A(){
-    struct ret_val ret;
-    ret.val_1 = 1;
-    ret.val_2 = 2;
-    return ret;
-}
-
-struct ret_val temp = calc_A(); 
-
-
-// By reference ...
-
-struct ret_val * calc_B(){
-    static struct ret_val ret;
-    ret.val_1 = 1;
-    ret.val_2 = 2;
-    return &ret;
-}
-
-struct ret_val pTemp = calc_B();
-
-```
-
-## Structure operators
-
-```c
-int j = x.y;     // Get the value of member y in structure x.
-
-int j = p->y;    // Get the value of member y in structure pointed to by p.
-
-// p->y   <=> (*p).y    - They represent the same thing.
-
-```
 
 ## Unions
 
@@ -970,32 +867,37 @@ value.k    = 8;
 ```
 
 ## Dynamic memory allocation on the Heap 
+- stdlib.h library provides functions for dynamic memory allocation.
+- Memory is allocated on the heap, which allows for dynamic memory management during runtime.
 
 1. malloc()  - Allocates one block of memory with a specific size, and returns a pointer to the first address of the block.
-2. calloc()  - Allocates one or more memory blocks and initializes them to 0 (zero).
+2. calloc()  - Allocates one or more memory blocks of specified size and initializes them to 0 (zero).
 3. realloc() - Allows you to change the size of a previous allocated memory block.  
 4. free()    - Free the memory allocated by a previous malloc(), calloc() or realloc(). 
 
+- malloc() and calloc() return a pointer to the allocated memory block, or NULL if the allocation fails. it will be void pointer, so you need to cast it to the appropriate type.
 
 ```c
 // malloc - Allocates a memory block for 100 int's.
-int * ptr_1 = (int *) malloc(100 * sizeof(int))
-if (ptt_1 == NULL)
+int * ptr_1 = (int *) malloc(100 * sizeof(int));
+if (ptr_1 == NULL) // dereferencing a NULL pointer will cause a segmentation fault.
    printf("Error in malloc().");
 
 // calloc - Allocates a memory block for 100 int's.
 int * ptr_2 = (int *) calloc(100, sizeof(int));
-if (ptt_1 == NULL)
+if (ptr_2 == NULL)
    printf("Error in calloc().");
 
 // realloc - Reallocates memory of a new size, the new size is not initialized.
 unsigned int newSize = 200;
 int * ptr_3 = realloc(ptr_1, newSize);
-if (ptt_1 == NULL)
+if (ptr_3 == NULL)
    printf("Error in realloc().");
 
 // free - Free's the memory previously allocated.
-free(ptr);
+free(ptr_1);
+free(ptr_2);
+free(ptr_3);
 
 ```
 
@@ -1004,14 +906,11 @@ free(ptr);
 
 ## Types of includes
 
-```
-// The include between < > is a standard C include, searched in the 'system' directory.
-#include <stdio.h>
+- The include between < > is a standard C include, searched in the 'system' directory.
+- #include <stdio.h>
 
-// The include between "  " is a C include from my program, searched in the programs directory or similar.
-#include "main.h"
-
-```
+- The include between "  " is a C include from my program, searched in the programs directory or similar.
+- #include "main.h"
 
 ## Keyword static
 
@@ -1021,59 +920,16 @@ free(ptr);
 
 ---
 
-### Strings
-
+## Enumerations (enum)
+- user defined data type that consists of a set of named integer constants.
 ```c
-// char message_1 [] - Array of chars.
-
-// A array of char's, '\0' terminated, but it doesn't have to be '\0' terminated.  
-char message_1[] = {'b','a','t','a','t','i','n','h','a','s','\n', '\0'};
-
-// Also valid - '\0' terminated string.
-char message_1[] = "batatinhas\n";
-
-// The address of the first position of the array.
-message_1
-
-// The first character, the character 'b'.
-message_1[0]
-
-// The address of the second character, the address of character 'a'.
-&message_1[1]
-
-// Attribution of a string to an char array. ILLEGAL
-message_1 = "ERROR\n";
-
-
-// char * message_2 - Pointer to chars.
-
-// It places the '\0' automatically.
-char * message_2 = "cemelhas\n";
-
-// The address of the first character of the '\0' terminated string.
-message_2
-
-// The first character 'c' of the '\0' terminated string.
-*message_2
-
-// The third character 'm' of the '\0' terminated string.
-*(message_2 + 2)
-
-// Attribution of character 'p' to the third character.
-*(message_2 + 2) = 'p';
-
-// Makes the pointer char *, point to the array of characters, the inverse isn't valid.
-message_2 = message_1;
-
-// uint8_t * message_3 - Pointer to uint8_t, equivalent to char. 
-
-// It places the '\0' automatically.
-uint8_t * message_3 = "cemelhas_2\n";
-
+enum color {
+    RED,
+    GREEN,
+    BLUE
+};
+enum color myColor = RED; // myColor is of type enum color and initialized to RED.
 ```
-[👉 Click for more details](./C_strings.md)
-
----
 
 ### Functions for manipulating files
 
@@ -1234,6 +1090,14 @@ void led_sequence(void){
 
 ## Preprocessor Macros
 
+- #define is used to define a preprocessor macro.
+- #undef is used to undefine a preprocessor macro.
+- #include is used to include a header file.
+- #ifdef, #ifndef, #if, #else, #elif, #endif are used for conditional compilation.
+- #pragma is used to give special instructions to the compiler.
+
+
+
 1. Always put the Macro inside parenthesis, so that the order of execution is always the same.
 
 ```c
@@ -1241,7 +1105,7 @@ void led_sequence(void){
 
 ```
 
-2. Always protect the **.h** file content against multiple inclusion on the same .C file. 
+2. Always protect the **.h** file content against multiple inclusion on the same .C file.
 
 ```c
 #ifndef REG_BASE_ADDRESSES_H
@@ -1259,198 +1123,4 @@ void led_sequence(void){
 // This is a technique in C programming to execute multiple C statements using a single C macro.
 // Placing a do__while loop that only executes once. 
 #define GPIO_G_SET()      do{ (GPIOA->MODE |= (1 << 0)); (GPIOA->MODE &= ~(1 << 0)); }while(0)
-
 ```
-
-## C for Embedded Systems
-
-```c
-// Include that has the primitive fixed size types.
-#include <stdint.h>
-
-// How to define registers based on the Memory Map base address of the peripheral and a specific register offset of that peripheral?
-// Register that Enables the RCC peripheral Clock.
-#define RCC_BASE_ADDR          0x40012000UL
-#define RCC_APB2_ENR_OFFSET    0x44UL
-#define RCC_APB2_ENR_ADDR      (RCC_BASE_ADDR + RCC_APB2_ENR_OFFSET)
-
-// Register of the ADC enable of random bit.
-#define ADC_BASE_ADDR          0x42012000UL
-#define ADC_CR1_REG_OFFSET     0x04UL
-#define ADC_CR1_REG_ADDR       (ADC_BASE_ADDR + ADC_CR1_REG_OFFSET)
-
-int main(void){
-
-    // How to SET and Clear bit's on a register?
-
-    // The following case makes a set of one bit to '1'.
-
-    // Register that enables the RCC peripheral Clock on bit 9th.
-	uint32_t volatile *pRccApb2Enr = (uint32_t *) RCC_APB2_ENR_ADDR;
-	*pRccApb2Enr |= (1 << 8)
-
-
-    // The following case makes a clear of one bit to '0'.
-
-    // Register of the ADC that we will clear the 9th bit.
-	uint32_t volatile *pAdcCr1Reg = (uint32_t *) ADC_CR1_REG_ADDR;
-	*pAdcCr1Reg &= ~(1 << 8)
-
-
-    // The following case makes the Clear of the value 3 -> ~'11' that is '00' 
-    // and set's the value 2 -> '10'.
-
-    uint32_t volatile * pGPIOAModeReg = (uint32_t *) (GPIOA_BASE_ADDR + 0x00)  // + offset address.
-
-    *pGPIOAModeReg &= ~(0x3 << 16);    // **Clear**
-    *pGPIOAModeReg |=  (0x2 << 16);    // **Set**
-
-    // How to test if one bit transition from 0 to 1, that is bit 18?
-
-    // We test if one bit transition from 0 to 1, that is bit 18.    
-    while( !(*pGPIOA_IOR_Reg & (1 << 18)) );
-}
-
-```
-
-## Keyword **const** and **volatile**
-
-1. The keyword **const** means that the it is constant, the content data or the address of the pointer. 
-
-2. The keyword **volatile** means that the content data or the address of the pointer is never optimized away by the compiler -O2 or something, because each time it is used a fresh copy of the data as to be fetched from memory. It is very useful, when dealing with registers on a microController or when several simultaneous threads are executing, or when a main thread is executing and a ISR will interrupt the main processing thread. Because code can be interrupted every access to this volatile variable should be fetched again from the memory or memory mapped register. 
-
-```c
-#define SRAM_ADDRESS1    0x20000000UL
-
-// This means that the content of the pointer is "volatile".
-uint32_t volatile *p = (uint32_t *) SRAM_ADDRESS1;
-
-// This means that the address of the pointer is "volatile".
-uint32_t * volatile p = (uint32_t *) SRAM_ADDRESS1;
-
-// This means that the content of the data is volatile and the address of the pointer is "volatile".
-uint32_t volatile * volatile p = (uint32_t *) SRAM_ADDRESS1;
-
-
-// ... and the same logic and places to the keyword "const".  
-
-```
-
-## Sizes for 32 bit microController
-
-- **Byte**        : data of 8-bit length.
-- **Half word**   : data of 16-bit length.
-- **Word**        : data of **32-bit** length. Because the microController is a 32 bit's microController.
-- **Double word** : data of 64-bit length.
-
-
-## Two ways of making a Menu with strings - char * - and send it to UART.
-
-1. The complex way...
-
-```c
-	// Menu text to TX:
-	char const * message_0 = "\n\n\n   Menu\n\n";
-	char const * message_1 = "1. LED animation.\n";
-	char const * message_2 = "2. Option 2.\n";
-	char const * message_3 = "3. Option 3.\n";
-	char const * message_4 = "4. Option 4.\n\n";
-	char const * all_messages[] = {message_0, message_1, message_2, message_3, message_4 };
-
-	uint32_t all_messages_size = sizeof(all_messages) / sizeof(all_messages[0]);
-	for(int i=0; i < all_messages_size; i++){
-		HAL_UART_Transmit(&huart2, (uint8_t *) all_messages[i], (uint16_t) strlen(all_messages[i]),
-                          timeout);
-	}
-
-```
-
-2. The simple way ...
-
-```c
-    #include <string.h>
-
-	// Menu text to TX:
-	char const * message = "\n\n\n   Menu\n\n"
-	                       "1. LED animation.\n"
-	                       "2. Option 2.\n"
-	                       "3. Option 3.\n"
-	                       "4. Option 4.\n\n";
-	
-	HAL_UART_Transmit(&huart2, (uint8_t *) message, (uint16_t) strlen(message),
-                      timeout);
-	
-```
-
-# Utils
-
-## Abstract Double Linked List - jco_list
-
-This is a Abstract Double Linked List, called jco_list and it's license is MIT Open Source. <br>
-The list interface follows. To see examples of the list usage see the tests inside the main.c source code file.
-
-```c
-typedef struct node{
-    void * elem;
-    struct node * next;
-    struct node * prev;
-} NODE;
-
-typedef struct{
-    NODE * firstNode;
-    NODE * lastNode;
-    int size;
-    NODE * iterator;
-} LST;
-
-typedef enum { LST_D_UP, LST_D_DOWN } LST_DIRECTION;
-
-
-LST *  lst_new(/* NULL or pointer to function equals == */);
-bool   lst_free(LST * lstObj);
-
-int    lst_size(LST * lstObj);
-
-void * lst_get_first(LST * lstObj);
-void * lst_get_last(LST * lstObj);
-void * lst_get_at(LST * lstObj, int pos);
-
-// Returns the previous existing element in that pos.
-void * lst_set(LST * lstObj, void * elem, int pos);
-
-bool   lst_insert_first(LST * lstObj, void * elem);
-bool   lst_insert_last(LST * lstObj, void * elem);
-bool   lst_insert_at(LST * lstObj, void * elem, int pos);
-
-// Receives a pointer to a function compare that as 
-// 2 parameters "a" and "b" and returns int,
-// 1 if a > b, 0 if a == b and -1 if a < b.
- bool   lst_insert_ordered(LST * lstObj, void * elem,
-                          int (* const ptr_to_funct_cmp) (void * a, void * b ) );
-
-void * lst_remove_first(LST * lstObj);
-void * lst_remove_last(LST * lstObj);
-void * lst_remove_at(LST * lstObj, int pos);
-
-// Iterators NEXT and PREV.
-bool   lst_iter_get_first(LST * lstObj);
-bool   lst_iter_get_last(LST * lstObj);
-void * lst_iter_next(LST * lstObj);
-void * lst_iter_prev(LST * lstObj);
-bool   lst_iter_is_begin(LST * lstObj);
-bool   lst_iter_is_end(LST * lstObj);
-
-void * lst_find(LST * lstObj, void * elem, 
-                int (* const ptr_to_funct_cmp) (void * a, void * b),
-                LST_DIRECTION direction,
-                NODE * currNode,
-                NODE ** foundNode);
-
-int cmp_int(void * aIn, void * bIn);
-int cmp_float(void * aIn, void * bIn);
-int cmp_double(void * aIn, void * bIn);
-int cmp_single_char(void * aIn, void * bIn);
-int cmp_null_term_str(void * aIn, void * bIn);
-
-```
-
