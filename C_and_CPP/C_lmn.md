@@ -6,7 +6,7 @@ Simple notes to revise the C programming language.
 - [Simple notes on the C Programming Language](#simple-notes-on-the-c-programming-language)
   - [Description](#description)
   - [Table of contents](#table-of-contents)
-  - Names in C
+  - [Names in C](#names-in-c)
     - [variable](#variable)
     - [Data types](#data-types)
       - [Basic data types in C](#basic-data-types-in-c)
@@ -71,15 +71,15 @@ Variables are used to store data that can be modified during program execution. 
 
 ## Data types
 
-# Basic data types in C
+### Basic data types in C
 ```c
-char for characters
-int for integers
-float for single precision floating point
-double for double precision floating point
-void for valueless data
+char //for characters
+int //for integers
+float //for single precision floating point
+double //for double precision floating point
+void //for valueless data
 
-data type modifiers:
+//data type modifiers:
 short 
 long   
 signed
@@ -91,19 +91,19 @@ unsigned int num_1 = 2;
 float num_2  = 5e-5;
 double num_3 = 3.7e12;
 ```
-# Derived data types in C
+### Derived data types in C
 - Array
 - Pointer
 
-# User defined data types in C
+### User defined data types in C
 - structure
 - Union
 - Enumeration (enum)
 
-# Identifiers
+## Identifiers
 Identifiers are names given to various program elements such as variables, functions, arrays, structures, unions, and enums. They must follow the same rules as names in C.
 
-# Keywords
+## Keywords
 Keywords are reserved words in C that have special meaning and cannot be used as identifiers. They are used to define the syntax and structure of the language. Some common keywords include:
 - auto, float, int, struct, break, for, long, switch, case, goto, register, typedef, char, if, return, union, continue, else, sizeof, void, default, enum, extern, static, volatile.
 
@@ -175,11 +175,11 @@ int max = (a > b) ? a : b; // max will be 10
 ```
 ## Jump statements
 
-# break statement
+### break statement
 -  used to exit from a loop and bring the program control to the next statement following the loop.
-# continue statement
+### continue statement
 -  used to skip the current iteration of a loop and proceed to the next iteration.
-# goto statement
+### goto statement
 - used to transfer control to a labeled statement in the program. It is generally discouraged due to its potential to create unstructured code.
 
 ## macros in c
@@ -196,7 +196,7 @@ int max = (a > b) ? a : b; // max will be 10
 ```
 
 
-** Function that exits a program - exit()
+### Function that exits a program - exit()
 
 ```c
 #include <stdlib.h>
@@ -212,7 +212,7 @@ int main(void){
 
 ```
 
-**❌ Why not use void main()?**
+### ❌ Why not use void main()?**
 
 - Undefined behavior: It’s non-standard.
 - No return value to indicate success/failure to the OS.
@@ -262,10 +262,10 @@ Syntax:
 ```c
 // char string_name [] = "string literal";
 // char string_name[size];
-char str_name[size];   // Character array
+char str_name[5];   // Character array
 char str_name[] = "Hello";   // String literal
 ```
-* string functions:
+### string functions:
 - strlen() - returns the length of a string.
 - strcpy() - copies a string to another string.
 - strcat() - concatenates two strings.
@@ -328,7 +328,7 @@ uint8_t * message_3 = "cemelhas_2\n";
 
 - A pointer is a variable that stores the address of another variable.
  Note : there is seperate readme file for pointer, refer [C_and_CPP/pointers.md](C_and_CPP/pointers.md)
-* types of pointers:
+### types of pointers:
   - Null pointer: A pointer that does not point to any valid memory location.
   - Void pointer: A pointer that can point to any data type.
   - wild pointer: A pointer that points to a random memory location, not initialized.
@@ -453,7 +453,7 @@ int num_elems = sizeof(ar_var) / sizeof(ar_var[0]) ;   // 2 elements
 - can contain different data types.
 - struct keyword is used to define a structure.
 
-# definition of a structure
+## definition of a structure
 ```c
 // Definition of a structure.
 struct structure_name {
@@ -476,14 +476,14 @@ struct car{
 } cs, cs_ar[10], *pcs;  
 ```
 
-# Declaration of a structure variable
+## Declaration of a structure variable
 ```c
 // Declaration of the variable of the structure to use it
 struct structure_name variable_name;
 // Example 
 struct car mycar;
 ```
-# Accessing the members of a structure.
+## Accessing the members of a structure.
  - dot operator is used to access the members of a structure.
  - in case of a pointer to a structure, the arrow operator is used.
 
@@ -505,7 +505,7 @@ struct structure_name{
 };
 ``` 
 
-# initialization of a structure members
+## initialization of a structure members
 - uninitialized structure variable contains garbage values.
 
 Initialization using assignment operator.
@@ -580,13 +580,13 @@ int main()
     return 0;
 }
 ```
-# size of a structure
+## size of a structure
 - The size of a structure is the sum of the sizes of its members, plus any padding added by the compiler for alignment purposes.
 ways of structure packing:
 - `#pragma pack(n)` - where `n` is the alignment boundary (e.g., 1, 2, 4, 8, etc.).
 - `__attribute__((packed))` - GCC specific attribute to pack the structure without padding.
 
-# copy structure
+## copy structure
 
 Copying a structure variable to another structure variable is done using the assignment operator. this method of copying is called "shallow copy".
 
@@ -606,7 +606,7 @@ int main()
     return 0;
 }
 ```
-# Passing structures to functions
+## Passing structures to functions
 - Structures can be passed to functions by value or by reference.
 - When passed by value, a copy of the structure is made, and changes to the copy do not affect the original structure.
 - When passed by reference, a pointer to the structure is passed, allowing the function to modify the original structure.
@@ -642,7 +642,7 @@ int main() {
 ```
 
 
-# typedef's for structures
+## typedef's for structures
 
 - typedef is used to create an alias for an existing data type.
 
@@ -688,7 +688,7 @@ void func_1(TAG_T * pS1){
 ```
 
 
-# Nested structures.
+## Nested structures.
 
 - Embedded structure nesting: the structure is defined inside another structure.
 - Separate structure nesting: the structure is defined separately and then used as a member of another structure.
@@ -759,7 +759,7 @@ car_s.license_plate_date.day   = 1;
 pCar_s->license_plate_date.day = 1;
 ```
 
-# Self referencing structures.
+## Self referencing structures.
 
 The self-referential structures are those structures that contain references to the same type as themselves i.e. they contain a member of the type pointer pointing to the same structure type.
 
@@ -814,7 +814,7 @@ typedef struct node_B NODE_B_T;
 
 // Personal note: See this with more attention regarding the typedef's.
 ```
-# Structure pointer
+## Structure pointer
 - a pointer to a structure is a variable that holds the address of a structure. (->)arrow operator is used to access the members of a structure through a pointer.
 
 ```c
@@ -837,7 +837,7 @@ int main() {
     return 0;
 }
 ```
-## Bit Fields
+# Bit Fields
 
 struct date{
     uint32_t day:5;
@@ -847,7 +847,7 @@ struct date{
 
 typedef struct date DATE_T;
 
-## Unions
+# Unions
 
 ```c
 typedef union{
@@ -866,7 +866,7 @@ value.j    = 4;     // at the same time.
 value.k    = 8;
 ```
 
-## Dynamic memory allocation on the Heap 
+# Dynamic memory allocation on the Heap 
 - stdlib.h library provides functions for dynamic memory allocation.
 - Memory is allocated on the heap, which allows for dynamic memory management during runtime.
 
@@ -931,7 +931,7 @@ enum color {
 enum color myColor = RED; // myColor is of type enum color and initialized to RED.
 ```
 
-### Functions for manipulating files
+# File handling
 
 ```c
 #include <stddef.h>
