@@ -41,6 +41,8 @@ printf("Address stored in ptr: %p\n", (void*)ptr); // Printing the address store
 
 ### Pointer Arithmetic in C
 Pointer arithmetic is a powerful feature in C that allows you to manipulate memory addresses directly. This can be particularly useful when working with arrays and dynamic memory allocation. Below are some common questions and answers related to pointer arithmetic.
+
+
 **1. What is pointer arithmetic?**
 **Answer:**
 Pointer arithmetic refers to performing operations like addition, subtraction, and comparison on pointers. It is typically used for traversing arrays or accessing memory locations.
