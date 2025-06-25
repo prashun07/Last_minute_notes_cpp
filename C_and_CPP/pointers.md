@@ -44,6 +44,7 @@ Pointer arithmetic is a powerful feature in C that allows you to manipulate memo
 
 
 **1. What is pointer arithmetic?**
+
 **Answer:**
 Pointer arithmetic refers to performing operations like addition, subtraction, and comparison on pointers. It is typically used for traversing arrays or accessing memory locations.
 

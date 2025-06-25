@@ -41,16 +41,20 @@ The realloc() function is used to resize a previously allocated memory block. It
 - if no memory is available, realloc() returns NULL and the original memory block remains unchanged.
 - Don't overwrite the pointer returned by realloc() without checking for NULL, as it may lead to memory leaks.
 
-**free()**
+### free()
 The free() function is used to deallocate memory that was previously allocated using malloc(), calloc(), or realloc(). It is important to free dynamically allocated memory to avoid memory leaks.
 - free() does not return any value. It simply releases the memory back to the system.
 - After freeing memory, the pointer becomes a dangling pointer. It is a good practice to set the pointer to NULL after freeing it.
 - Attempting to access memory after it has been freed results in undefined behavior.
 
-**Issues Assciated with Dynamic Memory Allocation**
+### Issues Associated with Dynamic Memory Allocation
+
 Memory Leaks: Failing to free dynamically allocated memory leads to memory leaks, exhausting system resources.
+
 Dangling Pointers: Using a pointer after freeing its memory can cause undefined behavior or crashes.
+
 Fragmentation: Repeated allocations and deallocations can fragment memory, causing inefficient use of heap space.
+
 Allocation Failures: If memory allocation fails, the program may crash unless the error is handled properly.
 
 ---
@@ -58,7 +62,7 @@ Allocation Failures: If memory allocation fails, the program may crash unless th
 ### Memory Management in C++
 C++ provides several features and techniques for memory management, including constructors, destructors, smart pointers, and the RAII (Resource Acquisition Is Initialization) principle. These features help manage memory more effectively and reduce the risk of memory leaks and dangling pointers.
 
-**new operator**
+#### new operator
 The new operator requests for the allocation of the block of memory of the given size of type on the Free Store. If sufficient memory is available, a new operator initializes the memory to the default value according to its type and returns the address to this newly allocated memory.
 - The new operator returns a pointer of type T* (where T is the type of the object being allocated).
 - If the allocation fails, it throws a std::bad_alloc exception.
@@ -67,7 +71,7 @@ The new operator requests for the allocation of the block of memory of the given
 > new data_type; // Example of allocating a single object
 > new data_type[array_size]; // Example of allocating an array of objects
 
-**delete operator**
+#### delete operator
 The delete operator is used to deallocate memory that was previously allocated using the new operator. It frees the memory and calls the destructor for the object if applicable.
 
 ```cpp
@@ -86,15 +90,15 @@ delete[] arr; // Deallocating array of integers
 - new and delete are type-safe, while malloc() and free() are not.
 - new and delete can be overloaded, while malloc() and free() cannot.
 
-**Memory Leak**
+#### Memory Leak
 Memory leak occurs when the program allocates memory but forgets to deallocate it. This can cause wasted memory and eventually lead to program crashes.
 
-**Smart Pointers**
+## Smart Pointers
 Smart pointer is wrapper class over a pointer that acts as a pointer but automatically manages the memory it points to. 
 - It ensures that memory is properly deallocated when no longer needed, preventing memory leaks. 
 - It is a part of <memory> header file.
 
-**Types of Smart Pointers**
+### Types of Smart Pointers
 auto_ptr :  Deprecated in C++11, use std::unique_ptr instead.
 unique_ptr : unique_ptr stores one pointer only at a time. We cannot copy unique_ptr, only transfer ownership of the object to another unique_ptr using the move() method.
 ```cpp
