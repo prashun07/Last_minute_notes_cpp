@@ -100,6 +100,7 @@ Smart pointer is wrapper class over a pointer that acts as a pointer but automat
 
 ### Types of Smart Pointers
 auto_ptr :  Deprecated in C++11, use std::unique_ptr instead.
+
 unique_ptr : unique_ptr stores one pointer only at a time. We cannot copy unique_ptr, only transfer ownership of the object to another unique_ptr using the move() method.
 ```cpp
     unique_ptr<Rectangle> P1(new Rectangle(10, 5));

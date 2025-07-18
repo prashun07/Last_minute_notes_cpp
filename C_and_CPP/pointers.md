@@ -267,3 +267,7 @@ int main() {
 **Answer:**
 When `p1` and `p2` point to elements of the same array, the result of `p1 - p2` is the number of elements between `p1` and `p2`. The result is the difference in terms of the number of array elements, not bytes.
 
+ You cannot dereference a void * because the compiler doesn’t know the size or type of the data it points to.
+
+&i gives you the address of i, which is an rvalue (a temporary value, not something you can modify).
+The ++ operator (post-increment) cannot be applied to an rvalue.

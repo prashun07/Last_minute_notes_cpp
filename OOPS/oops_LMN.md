@@ -259,8 +259,11 @@ public:
 ### 6: Inheritance
 
 **Answer**: The capability of a class to derive properties and characteristics from another class is called Inheritance.
+
 Derived Class: The class that inherits properties from another class is called Sub class or Derived Class.
+
 Base Class: The class whose properties are inherited by a sub-class is called Base Class or Superclass.
+
 - Inheritance supports concepts of resuability.
 - The derived class inherits all the members (data members and member functions) of the base class and can add its own members.
 - The derived class can access the members of the base class using the scope resolution operator (::).

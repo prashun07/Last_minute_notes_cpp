@@ -46,38 +46,131 @@ Storage:
 ---
 
 ### String Functions
-**<stdio.h>**
+#### <stdio.h>
 
-sprintf() - The same as printf but to a string.
-sscanf()  - The same as scanf but from a string.
+- sprintf() - The same as printf but to a string.
+- sscanf()  - The same as scanf but from a string.
 
-**<stdlib.h>**
+#### <stdlib.h>
 
-atoi() - Converts a string to a int.
-atof() - Converts a string to a double.
-atol() - Converts a string to a long int.
-getenv() - Get environment variables or proprieties from the
+- atoi() - Converts a string to a int.
+- atof() - Converts a string to a double.
+- atol() - Converts a string to a long int.
+- getenv() - Get environment variables or proprieties from the
            system.
 
-**<string.h>**
+#### <string.h>
 
-memcmp()   - Compares the first n chars of the sequence s1 and s2.
-memcpy()   - Copies the first n chars from s2 to s1.
-memset()   - Initializes a array or a memory block with a value.
+- memcmp()   - Compares the first n chars of the sequence s1 and s2.
+- memcpy()   - Copies the first n chars from s2 to s1.
+- memset()   - Initializes a array or a memory block with a value.
 
-strcat()   - Concatenates a copy of s2 to s1.
-strchr()   - Returns the first occurrence of a char in a string.
-strcmp()   - Compares the chars of the sequence s1 with s2.
-  
-strcpy()   - Copies the string pointed by s2 into a array s1.
-strlen()   - Returns the length of a string (in bytes). The '\0'
+- strcat()   - Concatenates a copy of s2 to s1.
+- strchr()   - Returns the first occurrence of a char in a string.
+- strcmp()   - Compares the chars of the sequence s1 with s2.
+
+- strcpy()   - Copies the string pointed by s2 into a array s1.
+- strlen()   - Returns the length of a string (in bytes). The '\0'
              is not included.
-strncat()  - Appends up to n characters of string s2 to the end of
+- strncat()  - Appends up to n characters of string s2 to the end of
              string s1.
-strncmp()  - Equal to strcmp() but only for n characters. 
-strncpy()  - Equal to strcpy() but only for n characters.
+- strncmp()  - Equal to strcmp() but only for n characters.
+- strncpy()  - Equal to strcpy() but only for n characters.
 
----
+```c
+#include<stdio.h>
+#include<string.h>
+
+int main()
+{
+    char src[]="Prashun";
+    char dest[20];
+    
+    printf("String src: %s\n",src);
+    printf("Length of src: %ld\n",strlen(src));
+    
+    strcpy(dest,src);
+    printf("Length of dest: %d\n",(int)strlen(dest));
+    printf("String dest: %s\n",dest);
+    int result=strcmp(dest , src);
+    if(result<0)
+    {
+        printf("String dest is smaller than src\n");
+    }
+    else if(result>0)
+    {
+        printf("String src is larger than src\n");
+    }
+    else{
+        printf("Both string are equal\n");
+    }
+    
+    char last[]="Jha";
+    printf("Length of last: %ld\n",strlen(last));
+    printf("String last: %s\n",last);
+    strcat(src," "); //Add space at the last of src
+    strcat(src,last); //Concate both string last into src
+    
+    printf("Length of src: %ld\n",strlen(src));
+    printf("String src: %s\n", src);
+    
+    
+    //first occurrence of a character
+    char str[10]="RadaRdaRR";
+    char * index=strchr(str,'R');
+    printf("First occurrence of R at %ld\n",index-str);
+    
+    //last occurrence of a character
+    char *lastind=strrchr(str,'a');
+    printf("Last occurrence of a at %ld\n",lastind-str);
+    
+    //Find a substring in a large string
+    char large_str[100]="Hello Geeks,I am prashun,and a Geeks.";
+    
+    char *sstr= strstr(large_str, "Geeks");
+    
+    if(sstr)
+    {
+        printf("String Geeks found\n");
+    }
+    else{
+        printf("String Geeks not found\n");
+    }
+    
+    //Spilt string corresponding to a char
+    printf("\nSpilt string.....\n");
+    char * delimiter=strtok(large_str,",");
+    
+    while(delimiter!=NULL)
+    {
+        printf("%s\n",delimiter);
+        delimiter=strtok(NULL,",");
+    }
+    
+    return 0;
+}
+```
+
+**Output** 
+> String src: Prashun
+> Length of src: 7
+> Length of dest: 7
+> String dest: Prashun
+> Both string are equal
+> Length of last: 3
+> String last: Jha
+> Length of src: 11
+> String src: Prashun Jha
+> First occurrence of R at 0
+> Last occurrence of a at 6
+> String Geeks found
+
+> Split string.....
+> Hello Geeks
+> I am prashun
+> and a Geeks.
+
+
 
 ### Important interview questions
 **🔹 Reverse a String**
