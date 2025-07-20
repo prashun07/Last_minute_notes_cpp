@@ -222,6 +222,12 @@ int main(void){
 
 ## TypeDef's
 
+- typedef does not create a new type; it creates a synonym for an existing one. 
+- It doesn't reserve memory like a struct or class declaration. 
+- typedef names share the same namespace as ordinary identifiers, meaning you can have a typedef name and a variable with the same name in the same scope. 
+- You can use typedef with various data types, including structs, unions, and pointers. 
+
+
 ```c
 // Defining a new type 1.
 typedef unsigned long int ULINT_T;
@@ -327,6 +333,7 @@ uint8_t * message_3 = "cemelhas_2\n";
 ## Pointers
 
 - A pointer is a variable that stores the address of another variable.
+
  Note : there is seperate readme file for pointer, refer [C_and_CPP/pointers.md](C_and_CPP/pointers.md)
 ### types of pointers:
   - Null pointer: A pointer that does not point to any valid memory location.
@@ -399,9 +406,9 @@ int clear(int *ar_tmp, size_row, position_clear){
 
 ## Decrement and increment operators
 
-1. ++a - increment a, then get value of a. Prefix.
+1. ++a - increment a, then get value of a.(Prefix).
 
-2. a++ - get value of a, then increment a. Posfix.
+2. a++ - get value of a, then increment a. (Postfix).
 
 ## Comparing floating point values
 
@@ -416,6 +423,10 @@ if ( (x > 2.0 - 0.0001) && (x < 2.0 + 0.0001)){
     // Always compare with interval, never with exact values, 
     // because floating point representation may not have exact values. 
 }
+// use fabs(x-2.0) < 0.0001; to compare with tolerance.
+// fabs() is a function that returns the absolute value of a floating point number.
+// It is defined in the math.h header file.
+
 ```
 
 
@@ -582,6 +593,9 @@ int main()
 ```
 ## size of a structure
 - The size of a structure is the sum of the sizes of its members, plus any padding added by the compiler for alignment purposes.
+
+Padding is added to structures to ensure that each member is aligned in memory according to the CPU's requirements. Proper alignment allows the processor to access data more efficiently, which can improve performance and prevent hardware faults on some architectures.
+
 ways of structure packing:
 - `#pragma pack(n)` - where `n` is the alignment boundary (e.g., 1, 2, 4, 8, etc.).
 - `__attribute__((packed))` - GCC specific attribute to pack the structure without padding.
@@ -839,6 +853,20 @@ int main() {
 ```
 # Bit Fields
 
+- Reduces memory usage by allowing the allocation of a specific number of bits for a member of a structure.
+- Useful for representing flags or small integers.
+- To make program more memory efficient, especially in embedded systems.
+- Bit fields are defined using a colon (:) followed by the number of bits to allocate.
+
+```c
+struct {
+    unsigned int is_visible : 1;
+    unsigned int is_enabled : 1;
+    unsigned int is_checked : 1;
+} flags;
+```
+
+```c
 struct date{
     uint32_t day:5;
     uint32_t month:4;
@@ -846,25 +874,80 @@ struct date{
 }
 
 typedef struct date DATE_T;
+```
+- msb store the most significant bit, and lsb store the least significant bit.
+- No pointer for bit fields.
+- Array of bit fields is not allowed.
 
 # Unions
-
+- A union is a user-defined data type that allows storing different data types in the same memory location.
+- Only one member of the union can hold a value at a time.
+- The size of a union is determined by the size of its largest member.  
+- Unions are useful for saving memory when you need to store different types of data but only one type will be used at a time.
 ```c
-typedef union{
-    struct{
-        int a1;
-        int a2;
-    } s;
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+// Definition of a union.
+union union_name {
+    data_type member_1;
+    data_type member_2;
+    ...
+}; // no memory is allocated for the union at this point.
+// Definition of a union. Example 1
+union number {
+    int a1;
+    int a2;
     float j;
     double k;
-} UNION_NUM;
+} num;
+// Definition of a union. Example 2
+union number {
+    int a1;
+    int a2;
+    float j;
+    double k;           
+} num = {1, 2, 3.0, 4.0}; // Initializing the union members.
+// Accessing the members of a union.
+num.a1 = 1; // Assigning value to member a1.
+num.j = 4.0; // Assigning value to member j, overwriting the value of a1.
+// Printing the values of the union members.
+printf("num.a1 = %d\n", num.a1); // Output: num.a1 = 1
+printf("num.j = %f\n", num.j);   // Output: num.j = 4.000000
+printf("num.k = %lf\n", num.k); // Output: num.k = 0.000000
+printf("num.a2 = %d\n", num.a2); // Output: num.a2 = 0
+// The value of num.a2 is 0 because it was not assigned a value.
+// The value of num.j is 4.0, but it overwrites the value of num.a1.
+// The value of num.k is 0.0 because it was not assigned a value.
+// The size of the union is determined by the size of its largest member.
+printf("Size of union number: %zu\n", sizeof(num)); // Output: Size of union number: 8
+// The size of the union is 8 bytes because the largest member is double, which is 8 bytes.
+// Union members cannot be initialized at the time of union definition.
+// Union members can be accessed using the dot operator (.) for union variables.
+// If you have a pointer to a union, you can access its members using the arrow operator (->).
+union number *pNum = &num; // Pointer to the union
+pNum->a1 = 5; // Assigning value to member a1
+printf("pNum->a1 = %d\n", pNum->a1); // Output: pNum->a1 = 5
+pNum->j = 6.0; // Assigning value to member j, overwriting the value of a1
+printf("pNum->j = %f\n", pNum->j); // Output: pNum->j = 6.000000
+printf("pNum->k = %lf\n", pNum->k); // Output: pNum->k = 0.000000
 
-UNION_NUM value;
-
-value.s.a1 = 1;     // Only one of those values exists in memory
-value.j    = 4;     // at the same time. 
-value.k    = 8;
 ```
+- An anonymous union in C is a union that does not have a name.
+
+```c
+struct student{
+    char name[50];
+    int age;
+    union { // Anonymous union
+        int id;
+        float gpa;
+    }; // No name for the union, it can be accessed directly.
+};
+
+```
+---
 
 # Dynamic memory allocation on the Heap 
 - stdlib.h library provides functions for dynamic memory allocation.
@@ -918,18 +1001,53 @@ free(ptr_3);
 
 2. Inside a function, means that the variable is created in the first call to the function and it exists and maintains and can update the value in subsequent calls of the function.
 
+```c
+#include<stdio.h>
+int fun()
+{
+    static int val=1;
+    val++;
+    printf("%d\n",val);
+}
+int main()
+{
+    fun();
+    printf("second call\n");
+    fun();
+    printf("third call\n");
+    fun(); 
+    return 0;
+}
+//output:
+// 2
+// second call
+// 3
+// third call
+// 4    
+```
+
 ---
 
 ## Enumerations (enum)
 - user defined data type that consists of a set of named integer constants.
+- used to write clean, easy to read and easy to maintainable code.
+- All enum names must be unique within the same scope.
+
+
 ```c
-enum color {
-    RED,
-    GREEN,
-    BLUE
+enum textEditor {
+    BOLD,
+    ITALIC,
+    UNDERLINE
 };
-enum color myColor = RED; // myColor is of type enum color and initialized to RED.
+int main() {
+    enum textEditor feature;
+    return 0;
+}
 ```
+
+---
+
 
 # File handling
 
@@ -1045,8 +1163,42 @@ fwrite() - Writes one block at a time.
 fclose(fp)
 
 ```
+---
+
 
 ## Function pointers
+
+- Function pointers are pointers that point to functions instead of data. They allow you to call functions dynamically at runtime, which can be useful for implementing callbacks or event handlers.
+- Function pointers can be used to create arrays of functions, allowing you to call different functions based on user input or other conditions.
+- Function pointers can also be used to pass functions as arguments to other functions, enabling higher-order functions and callbacks.
+- Function pointers can be declared using the syntax `return_type (*pointer_name)(parameter_types)`
+- Function pointers can be used to call functions by dereferencing the pointer or using the arrow operator.
+
+```c
+#include <stdio.h>
+
+int add(int a, int b) {
+    return a + b;
+}
+void calc(int a, int b, int (*op)(int, int)) {
+    printf("%d\n", op(a, b));
+}
+int main() {
+  
+    // Declare a function pointer that matches
+  	// the signature of add() fuction
+    int (*fptr)(int, int);
+
+    // Assign to add()
+    fptr = &add;
+
+    // Call the function via ptr
+    printf("%d", fptr(10, 5));
+    printf("%d", calc(10, 5, add));
+
+    return 0;
+}
+```
 
 ```c
 void led_sequence(void);
@@ -1074,6 +1226,7 @@ void led_sequence(void){
    // ...
 }
 ```
+---
 
 ## C99 - stdint.h - Primitive fixed size types
 
@@ -1087,6 +1240,13 @@ void led_sequence(void){
     uint32_t   int32_t
     uint64_t   int64_t
 ```
+---
+
+## C99 - stdbool.h - Boolean type
+- bool data type is not built in data type in C, but it is available in C99 standard.
+- It is defined in the stdbool.h header file.
+- The bool data type can take two values: true (1) and false (0).
+---
 
 ## Preprocessor Macros
 
@@ -1124,3 +1284,48 @@ void led_sequence(void){
 // Placing a do__while loop that only executes once. 
 #define GPIO_G_SET()      do{ (GPIOA->MODE |= (1 << 0)); (GPIOA->MODE &= ~(1 << 0)); }while(0)
 ```
+---
+
+## Type conversion in c
+- Type conversion is the process of converting a value from one data type to another.
+- Implicit conversion is done by the compiler automatically.
+- Explicit conversion is done by the programmer using type casting.
+
+#### Implicit conversion (type coercion) 
+- Implicit conversion is done by the compiler automatically when it is safe to do so.
+- This typically happens when a smaller data type is assigned to a larger data type or when different data types are involved in an arithmetic operation.
+
+- some of occurrences of implicit conversion:
+    - When assigning a smaller data type to a larger data type.
+    - When performing arithmetic operations between different data types.
+    - When passing arguments to functions with different data types.
+    - When returning values from functions with different data types.
+    - When using mixed data types in expressions.
+
+
+### Explicit conversion (type casting)
+- Explicit conversion is done by the programmer using type casting.
+- Type casting is the process of converting a value from one data type to another using a cast operator.
+- The cast operator is used to specify the target data type for the conversion. 
+- The syntax for type casting is `(target_type) expression`, where `target_type` is the data type you want to convert to, and `expression` is the value you want to convert.
+
+```c
+#include <stdio.h>
+
+int main() {
+    float f = 3.14;
+    int i = (int) f;  // Explicit conversion (type casting)
+    printf("%d\n", i);
+    return 0;
+}
+``` 
+---
+
+## Interger promotion
+- Integer promotion is the process of converting smaller integer types to larger integer types during arithmetic operations.
+- This is done to ensure that the arithmetic operations are performed correctly and to avoid loss of data.
+- Integer promotion occurs automatically in C when performing arithmetic operations on smaller integer types (such as `char`, `short`, and `unsigned char`) with larger integer types (such as `int`, `unsigned int`, `long`, and `unsigned long`).
+- The smaller integer types are promoted to `int` or `unsigned int` before the operation is performed.
+- If the value of the smaller integer type cannot be represented in `int`, it is promoted to `unsigned int` or `long` depending on the context of the operation.
+- Integer promotion is done automatically by the compiler.
+---

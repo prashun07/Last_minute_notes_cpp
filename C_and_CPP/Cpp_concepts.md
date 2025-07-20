@@ -31,6 +31,7 @@ Templates allow writing generic and reusable code. They enable functions and cla
 
 ```cpp
 #include <iostream>
+using namespace std;
 
 template <typename T>
 T add(T a, T b) {
@@ -48,9 +49,13 @@ int main() {
     Box<double> doubleBox(5.5);
     std::cout << intBox.getValue() << std::endl; // Outputs: 10
     std::cout << doubleBox.getValue() << std::endl; // Outputs: 5.5
-    add(5, 10); // Works with integers
-    add(5.5, 2.5); // Works with doubles
+    std::cout << add(5, 10); // Works with integers
+    std::cout << add(5.5, 2.5); // Works with doubles
     return 0;
 
 }
 ```
+## Unions in C++
+Unions allow storing different data types in the same memory location. Only one member can hold a value at a time.
+- size of union is the size of its largest member.
+
