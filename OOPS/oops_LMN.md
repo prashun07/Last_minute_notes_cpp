@@ -447,8 +447,6 @@ int main()
 > Derived class C \
 > Derived Class C : Inherited from class B
 
-**Question** What will happen if you access a function func() defined in both class A and class B? 
-**Answer**: It will give an error because the compiler will not be able to resolve the ambiguity. To resolve this ambiguity, we can use scope resolution operator (::) to specify which class function we want to access.
 
 4. **Hierarchical Inheritance**: In this type of inheritance, more than one subclass is inherited from a single base class.
 <img src="https://media.geeksforgeeks.org/wp-content/uploads/20250324181719120966/Hierarchical-inheritance.webp" width="400" height="400">  
@@ -557,7 +555,12 @@ int main()
 
 obj1 can access x and y of base class if defined public.
 
-**Diamond Problem**: In multiple inheritance, if a derived class inherits from two base classes that have a common base class, then the derived class will have two copies of the common base class. This is called the diamond problem. To resolve this problem, we can use virtual inheritance.
+**Question** What will happen if you access a function func() defined in both class A and class B? 
+
+**Answer**: It will give an error because the compiler will not be able to resolve the ambiguity. To resolve this ambiguity, we can use scope resolution operator (::) to specify which class function we want to access.
+
+### Diamond Problem
+In multiple inheritance, if a derived class inherits from two base classes that have a common base class, then the derived class will have two copies of the common base class. This is called the diamond problem. To resolve this problem, we can use virtual inheritance.
 The ambiguity arises because the derived class has multiple paths to access members or methods inherited from the common ancestor, leading to confusion during method resolution and member access.
 
 <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240603173048/diamond-problem-in-cpp.webp" width="400" height="400">  
@@ -602,12 +605,19 @@ int main()
 
 **NOTE:**  To fix this error, we can use virtual inheritance.
 
+
+```C++
+class Parent1 : virtual public Base {};
+class Parent2 : virtual public Base {};
+//Here only one copy of Base class is inherited by Child class.
+```
+
 ---
 
 
 ### 7: Encapsulation
 
-**Answer**: 
+**Answer**:  
 
 - In normal term encapsulation is defined as wrapping up of data and information under a single unit.
 - Encapsulation define as binding together the data and function that manipulates them.
