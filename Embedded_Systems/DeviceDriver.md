@@ -1,0 +1,379 @@
+# Linux Device Driver Interview Questions
+
+This repository contains a comprehensive list of interview questions and answers related to Linux device drivers.
+
+## Table of Contents
+
+- [Basic Concepts](#basic-concepts)
+- [Major and Minor Numbers](#major-and-minor-numbers)
+- [Kernel Modules](#kernel-modules)
+- [Device Types and Structures](#device-types-and-structures)
+- [User-Kernel Communication](#user-kernel-communication)
+- [File Systems](#file-systems)
+- [Platform Drivers](#platform-drivers)
+- [Miscellaneous Questions](#miscellaneous-questions)
+
+## Basic Concepts
+
+1. Give me one line definition of device-driver (fine with layman's terms)
+    >>
+    Device drivers are computer programs that control how different hardware devices interact with the operating system. They act as a bridge between the hardware and the software, allowing the two to communicate with each other. Without device drivers, hardware devices would not be able to function properly.
+2. Types of device drivers?
+    >A> Block device drivers, Character device drivers, Network device drivers, USB device drivers, etc.
+
+3. What is the difference between application written in kernel and user space ?
+
+## Major and Minor Numbers
+
+4. Major number in device driver
+    1. What Is Major Number And It's Usage ?
+         >A>
+         It's an  integer number  mainly used to provide the association between the device driver and device file . this number is  used by kernel.
+         (or)
+         The major number tells you which driver handles which device file.
+5. Minor number in device driver
+    5.1. What is Minor Number And It's Usage ?
+         >A>
+         The Minor number is used only by the driver itself to differentiate which device it's operating on, just in case the driver handles more than one device.
+         (or)
+         One driver can control more than one device. minor will be used to distinguish the one device from other devices
+    5.2. Who uses minor number ? Kernel or Driver ?
+            >A> Driver uses minor number to differentiate which device it's operating on, just in case the driver handles more than one device.
+
+## Kernel Modules
+
+6. What do you understand with term "kernel module" ?
+    >A> Kernel modules are pieces of code that can be loaded and unloaded into the kernel upon demand.
+7. Write a simplest Kernel module which prints "Hello World!" on load and "Bye Bye world!" on unload.
+    >A>
+    #include <linux/module.h> /* Needed by all modules */
+    #include <linux/kernel.h> /* Needed for KERN_INFO */
+
+    int init_module (void)
+    {
+         printk(KERN_INFO "Hello World!\n");
+         return 0 ;
+    }
+
+    void cleanup_module (void)
+    {
+         printk(KERN_INFO "Bye Bye World!\n");
+    }
+
+    ```c
+    MODULE_LICENSE("GPL");
+    MODULE_AUTHOR("Your Name");
+    MODULE_DESCRIPTION("Simple Hello World Kernel Module");
+    ```
+
+
+    Ask questions from written module code.
+8. Can I replace init_module / cleanup_module with any custom functions ? Using module_init and module_exit
+?
+
+Yes, you can replace `init_module` and `cleanup_module` with custom function names using `module_init()` and `module_exit()` macros:
+
+```c
+static int __init my_init(void) {
+    printk(KERN_INFO "Hello World!\n");
+    return 0;
+}
+
+static void __exit my_cleanup(void) {
+    printk(KERN_INFO "Bye Bye World!\n");
+}
+
+module_init(my_init);
+module_exit(my_cleanup);
+```
+
+This approach is preferred in modern kernel modules.
+
+9. Write a simple makefile to compile above linux module
+    >A>
+    obj-m += hello.o
+
+    all :
+    make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+
+    clean :
+    make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+
+10. Have you come across any limitation of printk compared to printf? Give me example.
+    >A> printk has a limited buffer size (1024 bytes per line), cannot use floating-point format specifiers (%f), and messages are sent to kernel log buffer instead of stdout. Example: printk cannot print float values directly like printf does.
+
+11. Have you used dmesg? How can I monitor dmesg in real-time?
+    >A> dmesg displays kernel ring buffer messages. Monitor in real-time using: `watch "dmesg | tail -n 20"` or `dmesg -w`
+
+12. Which command is used to get information about any kernel module? What informations does it show?
+    >A> `modinfo` command displays module information including: filename, license, author, description, parameters, and dependencies.
+
+13. Insmod, rmmod, lsmod and modprobe
+    13.1. Difference between modprobe and insmod. What is command to unload any given module using modprobe ?
+        >A> insmod directly inserts a module without resolving dependencies. modprobe resolves and loads all dependencies first. Unload with: `modprobe -r module_name`
+    13.2. modprobe loads all dependent modules first and then load the given module - How modprobe does it ?
+        >A> modprobe reads dependency information from files generated by depmod and automatically loads required modules before loading the target module.
+    13.3. What are steps to follow in order to load module using modprobe ?
+        >A>
+        1. Copy module: `sudo cp /path/to/module.ko /lib/modules/$(uname -r)/`
+        2. Generate dependencies: `sudo depmod -a`
+        3. Load module: `sudo modprobe module_name`
+    13.4. What is use depmod command ?
+        >A> depmod generates a list of kernel module dependencies and associated map files, creating dependency information used by modprobe.
+    13.5. How can I find out currently loaded kernel modules ?
+        >A> Use `lsmod` or `cat /proc/modules` to list all currently loaded modules.
+    13.6. I am rmmod'ing a kernel module, but failed with device busy error. How can I check number of processes using the kernel module ?
+        >A> Use `lsmod | grep module_name`. The number in the third column shows the count of processes using the module.
+14. __init* and __exit* macros
+    14.1. In dmesg, I observed "Freeing unused kernel memory : 128k freed" message. Can you tell me how does kernel freeing such memory ?
+        >A>
+        Some functions in the kernel source code are marked with __init because they run only once during initialization. This instructs    the compiler to mark a function in a special way. The linker collects all such functions and puts them at the end of the final     binary file.
+        When the kernel starts, this code runs only once during initialization. After it runs, the kernel can free this memory to reuse it and you will see the kernel message: e.g. "Freeing unused kernel memory: 128k freed"
+    14.2. __init, __exit, __initdata , __exitdata,  __exitcall etc
+     Where these macros are defined in? 
+     >A> <kernel-source>/include/linux/init.h
+15. What is need for MODULE_LICENSE ? Is it compulsory required ?
+    >A> MODULE_LICENSE declares the license under which the module is distributed (e.g., "GPL", "MIT"). It's not strictly required for compilation but is strongly recommended for kernel inclusion and to avoid "kernel tainted" warnings.
+
+16. Kernel module arguments
+    16.1. How can you pass arguments to the kernel module ? 
+    >A> Using module_param* macros.
+    16.2. How can you add description of the variable ? Which file we need to include to access these macros? 
+    <linux/moduleparam.h>
+        >A>
+         static int port_state = 0 ;
+         module_param(port_state, bool , 0644 );  /* A Boolean type */
+         MODULE_PARM_DESC(port_state, "default state of the port" );
+
+         /* call with */
+         ./insmod mymodule.ko port_state=2
+    16.3. I need to pass an integer array as an argument to kernel module – How can I  ?
+        >A>
+         static int arr[10];
+         static int arr_size = 0;
+         module_param_array(arr, int, &arr_size, 0644);
+         MODULE_PARM_DESC(arr, "integer array parameter");
+
+         /* call with */
+         ./insmod mymodule.ko arr=1,2,3,4,5
+    16.4. I need to pass a string as an argument to kernel module – How can I  ?
+        >A>
+         static char mystring[100];
+         module_param_string(mystring, mystring, sizeof(mystring), 0644);
+         MODULE_PARM_DESC(mystring, "string parameter");
+
+         /* call with */
+         ./insmod mymodule.ko mystring="hello world"
+
+## Device Types and Structures
+
+17. How can you identify if the device is block device or character device ? 
+Use ls –l , if first byte is C – Char device, if B – Block device
+18. What is file_operations structure ?
+19. dev_t type
+    19.1. What is dev_t ?
+    >A> dev_t is the data type introduced in kernel 2.6. It’s nothing but a 32 bit integer,
+        in which the first 12 bits holds the major number and the remaining 20 bits holds the minor number.
+    19.2. What is mkdev macro ?
+    >A> Given two integers - major and minor numbers, MKDEV combines them into one 32 bit dev_t compatible number.
+    19.3. What are macros to find major number and minor number from dev_t ?
+    >A>
+        MAJOR(dev_t dev);
+              The macro MAJOR accepts a dev_t type number which is 32 bits, and returns a major number
+        MINOR(dev_t dev);
+              The macro MINOR accepts a dev_t type number which is 32 bits, and returns a minor number
+    19.4. I have a dev = 0x0F800001. What will major number and minor number of the device ?
+    >A>
+        dev = 0x0F800001 (For Major number = 248 and Minor number = 1 )
+        MAJOR (dev) = 0x0F800001 >> 20 = 0x0F8 = 248
+        MINOR (dev) = 0x0F800001 & 0x000FFFFF = 0x1 = 1
+20. register_chrdev_region() vs alloc_chrdev_region()  OR How can I dynamically allocate major number ?
+21. cdev structure
+    21.1. What is cdev structure ?
+    21.2. cdev_alloc() vs cdev_init()
+    21.3. How memory allocated by cdev_alloc() will be freed ? Is there any cdev_free() method ?
+        >A> No. You can free it using cdev_del()
+    21.4. struct cdev vs struct inode
+    21.5. Which method/function use to add character device to the system ? cdev_add()
+
+## User-Kernel Communication
+
+22. What are the available methods(functions) to exachange data between kernel and user-space app ?
+    >A>
+        copy_from_user / copy_to_user
+        get_user / put_user
+        strncpy_from_user
+23. After creating character devices, How can you access it from user-space ? OR
+    How /dev/* entries being created ?
+    >A>
+        1. Use mknod to manually add a device node (older method)
+            mknod /dev/<name> c <major> <minor>  OR
+
+        2. Use udev
+            This is where the class_create and device_create come in.
+            To notify udev from your kernel module, you first create a virtual device class using class_create()
+            Now, the name will appear in /sys/class/<name>.
+            Then, create a device and register it with sysfs using device_create()
+            Now, device name will appear in /sys/devices/virtual/<class name>/<device name> and /dev/<device name>
+
+24. Ways to communicate between userspace and kernel space:
+    IOCTL, Procfs, Sysfs, Configfs, Debugfs, Sysctl, UDP Sockets, Netlink Sockets
+25. IOCTL
+    25.1. How can you define an IOCTL ? Give me example.
+    >A>
+        #define "ioctl name" __IOX("magic number","command number","argument type")
+
+        where IOX can be,
+        IO: an IOCTL with no parameters
+        IOW: an IOCTL with write parameters ( copy_from_user )
+        IOR: an IOCTL with read parameters ( copy_to_user )
+        IOWR: an IOCTL with both write and read parameters
+
+        The Magic Number is a unique number or character that will differentiate our set of ioctl calls from the other ioctl calls. sometimes the major number for the device is used here.
+
+        Command Number is the number that is assigned to the ioctl . This is used to differentiate the commands from one another.
+
+        The argument type is the type of data.
+
+    25.2. What is magic number in IOCTL ?
+
+25.2. What is magic number in IOCTL ?
+    >A> Magic number is a unique identifier (typically a character or small integer) used to differentiate your set of IOCTL commands from other drivers' IOCTL commands. It prevents accidental conflicts. Common practice is to use ASCII characters (e.g., 'k' for keyboard) or reserve numbers from Documentation/ioctl/ioctl-number.txt.
+
+25.3. What is command number in IOCTL ?
+    >A> Command number uniquely identifies a specific IOCTL operation within your driver. It's combined with the magic number to create distinct IOCTL calls.
+
+25.4. Give an example of defining IOCTLs.
+    >A>
+    ```c
+    #define MAGIC 'k'
+    #define SET_VALUE _IOW(MAGIC, 0, int)
+    #define GET_VALUE _IOR(MAGIC, 1, int)
+    #define RESET_VALUE _IO(MAGIC, 2)
+    ```
+
+27. /sys file system (sysfs)
+    27.1. What is sysfs ? How it differs from procfs ?
+    27.2. What is struct kobject ? and struct kobj_attribute ?
+    27.3. I want to create below sysfs file in kernel module to read/write to/from user. Consider info would be an integer value. How can I ?
+        I. /sys/kernel/info
+            >A>
+            ```c
+            volatile int user_info = 0;
+            static ssize_t sysfs_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
+            {
+                return sprintf(buf, "%d\n", user_info);
+            }
+
+            static ssize_t sysfs_store(struct kobject *kobj, struct kobj_attribute *attr, const char *buf, size_t count)
+            {
+                sscanf(buf, "%d", &user_info);
+                return count;
+            }
+
+            struct kobj_attribute kattr_ptr = __ATTR(user_info, 0660, sysfs_show, sysfs_store);
+            struct kobject *kobj_ref = kobject_create_and_add("info", kernel_kobj);
+            sysfs_create_file(kobj_ref, &kattr_ptr.attr);
+            ```
+        II. /sys/firmware/info
+            >A> Use firmware_kobj instead of kernel_kobj: `struct kobject *kobj_ref = kobject_create_and_add("info", firmware_kobj);`
+        III. /sys/fs/info
+            >A> Use fs_kobj instead of kernel_kobj: `struct kobject *kobj_ref = kobject_create_and_add("info", fs_kobj);`
+        IV. /sys/info
+            >A> Use NULL instead of kernel_kobj: `struct kobject *kobj_ref = kobject_create_and_add("info", NULL);`
+
+26. /proc file system (procfs)
+    26.1. What is proc file system ? For what purposes it is used ?
+    26.2. I want to create a procfs entry in /proc/<module_name>/info in kernel module. How can I create?
+        >A>
+        proc_mkdir()  // To create directory with module_name in /proc/ directory
+        proc_entry()  // To create /proc/<module_name>/info
+    26.3. Write a sample kernel module, which can print an incremental number from /proc/<module_name>/info starting from 1 – everytime you read using cat /proc/<module_name>/info.
+    26.4. How to remove a procfs entry created in kernel module? using remove_proc_entry()
+
+28. Configfs
+    28.1. What is configfs ?
+    28.2. How does configfs differ from sysfs ?
+    28.3. How to create configfs entries in kernel module ?
+
+## File Systems
+
+
+## Miscellaneous Questions
+
+31. To deploy a module inside kernel, what are the possible methods.? Mention actual difference among them.
+32. how many ways we can assign a major minor number to any device?
+33. How to make a module as loadable module?
+34. How to make a module as in-built module?
+35. What 's the use of __init and __exit macros?
+36. How to ensure that init function of a partiuclar driver was called before our driver's init function is called (assume that both these drivers are built into the kenrel image)?
+37. What is a device driver and write a simple driver and explain what happens when an insmod is done an module.?
+38. How will you insert a module statically in to linux kernel
+39. how the device files are created in Linux
+40. How can a static driver runs? Without doing any insmod?
+41. what kind of information the Linux driver modules (.ko )files has ?
+42. what are the different ways the Linux can switch from User Space to Kernel Space & vice-versa?
+43. How "Make" is performed in compiling a module?
+44. What is the path of your driver inside kernel?
+45. What are the function names for the driver you designed?
+46. Static Drivers vs Dynamic Driver?
+47. copy_to_user and copy_from_user?
+48. What happens if you load a module without Init and Exit routines?
+49. How to create a device file?
+50. What is "Major Number"? What is "Minor Number"?
+51. How do you pass a value to a module as a parameter?
+52. When you declare a symbol in a module as "static" storage type, then where it goes?
+53. Steps involved in "Character Device Registration" ?
+54. Creation of ioctls?
+55. How do you write a driver's open() call? Explain briefly.
+56. How can we Free Device Numbers ?
+57. What is use of dev_t type ?
+58. What is the disadvantage of dynamic device number assignment ?
+59. Where can we write allocation and freeing of device number's code ?
+60. How can i use my own major and minor number for a device file ?
+61. How to see statically assigned major numbers ?
+62. What will happen/can u have printf/printk inside an interrrupt hancler (i think he wanted me to say no.. but I did not know the reason)
+63. How can we allocate device number statically , dynamically?
+64. What is mknod and it's usage ?
+65. How to retrieve major and minor number from dev_t type ?
+66. What is use of dev_t type ?
+67. What is the functionality of PROBE function
+68. How to detect whether a device is not detected?
+69. Where your driver will be in kernel
+70. Which type of address (virtual or physical) is used in function iowrite32?
+71. What is the type of driver char or n/w or block driver you developed?
+72. How to register a CHAR driver to kernel?
+73. How to load a dynamic driver or static driver?
+74. How to develop a device driver for a hard device?
+75. IOCTL implementation programs
+76. Where will be your driver file will be located
+77. What is the entry point of your driver
+78. What are the ways in which linux kernel can be compiled ?
+79. How will get the driver added into the kernel ? What are Kconfig files ?
+80. How will you list the modules ?
+81. How do you get the list of currently available drivers ?
+82. How will you Access userspace memory from kernel ? What are the various methods ?
+83. What is the use of ioctl(inode,file,cmd,arg) ApI ?
+84. What is the use of the poll(file, polltable) API ?
+85. What is the use of file->private_data in a device driver structure ?
+86. What is a device number ?
+87. What are the two types of devices drivers from VFS point of view ?
+88. What are character devices ?
+89. How does the character device driver adds and remove itself from the kernel ?
+90. What is the use of register_chrdev and unregister_chrdev ?
+91. How to write a perticular value on real hardware register or hardware address in device driver programming ?
+92. Port Mapping/Memory mapping
+93. Device-driver entry points - https://docs.oracle.com/cd/E23824_01/html/819-3196/eqbqy.html
+94. What Is a Device Driver Entry Point?
+    >A>
+    An entry point is a function within a device driver that can be called by an external entity to
+    get access to some driver functionality or to operate a device. Each device driver provides a standard
+    set of functions as entry points
+95. Write a sample platform driver template which enables driver to probe from the compatible string
+    matched from relevant device-tree node.
+96. If I declare a global array in a device driver, will this array be shared among instances of the
+    driver probed by different device-tree nodes?
+    >A> Yes
+    96.1 How can you maintain seperate data for each driver instances ?
+    >A> Declare the data in your driver structre and initialize/alloc it in your probe function.
+    Use dev_set_drvdata/dev_get_drvdata to set/get driver specific data.
