@@ -107,6 +107,17 @@ Identifiers are names given to various program elements such as variables, funct
 Keywords are reserved words in C that have special meaning and cannot be used as identifiers. They are used to define the syntax and structure of the language. Some common keywords include:
 - auto, float, int, struct, break, for, long, switch, case, goto, register, typedef, char, if, return, union, continue, else, sizeof, void, default, enum, extern, static, volatile.
 
+## Storage Classes
+Storage classes in C define the scope (visibility) and lifetime of variables and functions. They determine where the variable is stored, how long it exists, and how it can be accessed. The main storage classes in C are:
+- `auto`: Default storage class for local variables. Variables are automatically allocated and deallocated when the function is called and exited, respectively.
+- `register`: Suggests that the variable should be stored in a CPU register for faster access. The address of a register variable cannot be taken.
+- `static`: Used to declare variables that retain their value between function calls. Static variables are initialized only once and exist for the lifetime of the program.
+- `extern`: Used to declare variables that are defined in another file or translation unit. It allows access to global variables across different files.
+- `typedef`: Used to create an alias for a data type, making it easier to use and read. 
+- `volatile`: Indicates that a variable may be changed by external factors (like hardware or interrupts) and prevents the compiler from optimizing access to it.
+
+
+
 ## Input and output functions
 - scanf and printf
 
